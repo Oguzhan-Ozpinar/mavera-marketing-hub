@@ -1,0 +1,5417 @@
+version: 1
+directus: 11.17.4
+vendor: postgres
+collections:
+  - collection: Calendar_Events
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: Calendar_Events
+      color: null
+      display_template: '{{event_title}}'
+      group: null
+      hidden: false
+      icon: event
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 3
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: Calendar_Events
+  - collection: Contacts
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: Contacts
+      color: null
+      display_template: '{{first_name}} {{last_name}}'
+      group: null
+      hidden: false
+      icon: group
+      item_duplication_fields: null
+      note: Bağışçılar ve Kişiler
+      preview_url: null
+      singleton: false
+      sort: 1
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: Contacts
+  - collection: Contacts_files
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: Contacts_files
+      color: null
+      display_template: null
+      group: Contacts
+      hidden: true
+      icon: attach_file
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 1
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: Contacts_files
+  - collection: Notes
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: Notes
+      color: null
+      display_template: '{{date}}'
+      group: null
+      hidden: false
+      icon: note
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 2
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: Notes
+  - collection: Opportunities
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: Opportunities
+      color: null
+      display_template: '{{title}}'
+      group: null
+      hidden: false
+      icon: monetization_on
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 4
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: Opportunities
+  - collection: Tasks
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: Tasks
+      color: null
+      display_template: >-
+        {{due_date}} tarihine kadar "{{task_name}}" tamamlanmalı
+        ->{{assigned_to}}
+      group: null
+      hidden: false
+      icon: check_circle
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 5
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: Tasks
+  - collection: attribution_events
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: attribution_events
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: developer_mode
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: attribution_events
+  - collection: automation_rules
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: automation_rules
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: smart_toy
+      item_duplication_fields: null
+      note: Dinamik bağış-tipi akış kuralları
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: automation_rules
+  - collection: bts_sync_queue
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: bts_sync_queue
+      color: null
+      display_template: '{{status}}'
+      group: null
+      hidden: false
+      icon: sync_problem
+      item_duplication_fields: null
+      note: BTS mvr_uid eslestirme retry kuyrugu
+      preview_url: null
+      singleton: false
+      sort: 999
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: bts_sync_queue
+  - collection: campaign_recipients
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: campaign_recipients
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: how_to_reg
+      item_duplication_fields: null
+      note: Kampanya gönderim logu
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: campaign_recipients
+  - collection: campaigns
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: campaigns
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: campaign
+      item_duplication_fields: null
+      note: Kampanyalar
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: campaigns
+  - collection: consent_log
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: consent_log
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: gavel
+      item_duplication_fields: null
+      note: İzin geçmişi (KVKK/İYS kanıtı)
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: consent_log
+  - collection: master_blacklist
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: master_blacklist
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: block
+      item_duplication_fields: null
+      note: Kanal bazlı engel listesi
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: master_blacklist
+  - collection: webhook_events
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: webhook_events
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: webhook
+      item_duplication_fields: null
+      note: Webhook idempotency
+      preview_url: null
+      singleton: false
+      sort: null
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: webhook_events
+fields:
+  - collection: Calendar_Events
+    field: id
+    type: uuid
+    meta:
+      collection: Calendar_Events
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: Calendar_Events
+      data_type: uuid
+      default_value: gen_random_uuid()
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Calendar_Events
+    field: event_title
+    type: string
+    meta:
+      collection: Calendar_Events
+      conditions: null
+      display: null
+      display_options: null
+      field: event_title
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: event_title
+      table: Calendar_Events
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Calendar_Events
+    field: start_date
+    type: timestamp
+    meta:
+      collection: Calendar_Events
+      conditions: null
+      display: null
+      display_options: null
+      field: start_date
+      group: null
+      hidden: false
+      interface: datetime
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: start_date
+      table: Calendar_Events
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Calendar_Events
+    field: end_date
+    type: timestamp
+    meta:
+      collection: Calendar_Events
+      conditions: null
+      display: null
+      display_options: null
+      field: end_date
+      group: null
+      hidden: false
+      interface: datetime
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: end_date
+      table: Calendar_Events
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Calendar_Events
+    field: location
+    type: string
+    meta:
+      collection: Calendar_Events
+      conditions: null
+      display: null
+      display_options: null
+      field: location
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: location
+      table: Calendar_Events
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Calendar_Events
+    field: contact_id
+    type: uuid
+    meta:
+      collection: Calendar_Events
+      conditions: null
+      display: related-values
+      display_options:
+        template: '{{first_name}} {{last_name}}'
+      field: contact_id
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: contact_id
+      table: Calendar_Events
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: Contacts
+      foreign_key_column: id
+  - collection: Contacts
+    field: id
+    type: uuid
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: Contacts
+      data_type: uuid
+      default_value: gen_random_uuid()
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: first_name
+    type: string
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: first_name
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: first_name
+      table: Contacts
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: last_name
+    type: string
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: last_name
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: last_name
+      table: Contacts
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: full_name
+    type: alias
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: full_name
+      group: null
+      hidden: false
+      interface: presentation-links
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 4
+      special:
+        - alias
+        - no-data
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: Contacts
+    field: phone
+    type: string
+    meta:
+      collection: Contacts
+      conditions: null
+      display: phone-display
+      display_options: null
+      field: phone
+      group: null
+      hidden: false
+      interface: phone-input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 5
+      special: null
+      translations: null
+      validation:
+        _and:
+          - phone:
+              _regex: ^\+[1-9]\d{1,14}$
+      validation_message: Telefon numarası + ile başlamalı ve ülke kodu içermelidir.
+      width: half
+    schema:
+      name: phone
+      table: Contacts
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: date_created
+    type: timestamp
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 14
+      special:
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: date_created
+      table: Contacts
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: user_created
+    type: uuid
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: user_created
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 15
+      special:
+        - user-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: user_created
+      table: Contacts
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 16
+      special:
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: date_updated
+      table: Contacts
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: user_updated
+    type: uuid
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: user_updated
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 17
+      special:
+        - user-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: user_updated
+      table: Contacts
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: files
+    type: alias
+    meta:
+      collection: Contacts
+      conditions: null
+      display: related-values
+      display_options: null
+      field: files
+      group: null
+      hidden: false
+      interface: files
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 24
+      special:
+        - m2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+  - collection: Contacts
+    field: email
+    type: text
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: email
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        iconLeft: mail
+        placeholder: '@mail.com'
+      readonly: false
+      required: false
+      searchable: true
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: email
+      table: Contacts
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: opportunities
+    type: alias
+    meta:
+      collection: Contacts
+      conditions: null
+      display: related-values
+      display_options: null
+      field: opportunities
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 21
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+  - collection: Contacts
+    field: notes
+    type: alias
+    meta:
+      collection: Contacts
+      conditions: null
+      display: related-values
+      display_options: null
+      field: notes
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 22
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+  - collection: Contacts
+    field: tasks
+    type: alias
+    meta:
+      collection: Contacts
+      conditions: null
+      display: related-values
+      display_options: null
+      field: tasks
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 23
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+  - collection: Contacts
+    field: calendar_events
+    type: alias
+    meta:
+      collection: Contacts
+      conditions: null
+      display: related-values
+      display_options: null
+      field: calendar_events
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 25
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: Contacts
+    field: referans
+    type: string
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: referans
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        iconLeft: quick_reference_all
+        placeholder: personel/uygulama
+      readonly: false
+      required: false
+      searchable: true
+      sort: 9
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: referans
+      table: Contacts
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: ulke
+    type: string
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: ulke
+      group: null
+      hidden: false
+      interface: input-autocomplete-api
+      note: null
+      options:
+        textPath: name.common
+        url: https://restcountries.com/v3.1/name/{{value}}
+        valuePath: cca2
+      readonly: false
+      required: false
+      searchable: true
+      sort: 12
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: ulke
+      table: Contacts
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: adres
+    type: text
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: adres
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        defaultView:
+          bearing: 0
+          center:
+            lat: -6.0901813491381915
+            lng: 9.403866702109553
+          pitch: 0
+          zoom: -0.09569870965259718
+        geometryType: Point
+        iconLeft: map
+      readonly: false
+      required: false
+      searchable: true
+      sort: 13
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: adres
+      table: Contacts
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: attribution_events
+    type: alias
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: attribution_events
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options:
+        fields:
+          - action_type
+          - source
+          - timestamp
+        sort: timestamp
+        sortDirection: '-'
+        template: '{{action_type}}{{timestamp}}'
+      readonly: false
+      required: false
+      searchable: true
+      sort: 20
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: Contacts
+    field: genel_not
+    type: text
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: genel_not
+      group: null
+      hidden: false
+      interface: input-multiline
+      note: null
+      options:
+        placeholder: >-
+          Kardeşimiz midir ? Nasıl bir insandır ? Daha önce görüşüldü mü ? Ofise
+          geldi mi ? 
+      readonly: false
+      required: false
+      searchable: true
+      sort: 11
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: genel_not
+      table: Contacts
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: mvr_uid
+    type: string
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: mvr_uid
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: mvr_uid
+      table: Contacts
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: true
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: divider-r66_ok
+    type: alias
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: divider-r66_ok
+      group: null
+      hidden: false
+      interface: presentation-divider
+      note: null
+      options:
+        color: '#B68707'
+        icon: density_medium
+        inlineTitle: true
+        title: User Journey
+      readonly: false
+      required: false
+      searchable: true
+      sort: 18
+      special:
+        - alias
+        - no-data
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: Contacts
+    field: bts_donations
+    type: alias
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: bts_donations
+      group: null
+      hidden: false
+      interface: mavera-bts-donations
+      note: BTS bagis gecmisini anlik ve salt okunur olarak gosterir.
+      options:
+        uidField: mvr_uid
+      readonly: true
+      required: false
+      searchable: true
+      sort: 19
+      special:
+        - alias
+        - no-data
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: Contacts
+    field: whatsapp_optin
+    type: boolean
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: whatsapp_optin
+      group: null
+      hidden: false
+      interface: boolean
+      note: null
+      options:
+        colorOff: '#E35169'
+        colorOn: '#2ECDA7'
+      readonly: false
+      required: false
+      searchable: true
+      sort: 7
+      special:
+        - cast-boolean
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: whatsapp_optin
+      table: Contacts
+      data_type: boolean
+      default_value: true
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: mail_optin
+    type: boolean
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: mail_optin
+      group: null
+      hidden: false
+      interface: boolean
+      note: null
+      options:
+        colorOff: '#E35169'
+        colorOn: '#2ECDA7'
+      readonly: false
+      required: false
+      searchable: true
+      sort: 8
+      special:
+        - cast-boolean
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: mail_optin
+      table: Contacts
+      data_type: boolean
+      default_value: true
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: sms_optin
+    type: boolean
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: sms_optin
+      group: null
+      hidden: false
+      interface: boolean
+      note: İYS MESAJ (SMS) izni
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 26
+      special:
+        - cast-boolean
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: sms_optin
+      table: Contacts
+      data_type: boolean
+      default_value: false
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: phone_call_optin
+    type: boolean
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: phone_call_optin
+      group: null
+      hidden: false
+      interface: boolean
+      note: İYS ARAMA izni
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 27
+      special:
+        - cast-boolean
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: phone_call_optin
+      table: Contacts
+      data_type: boolean
+      default_value: false
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: last_donation_at
+    type: timestamp
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: last_donation_at
+      group: null
+      hidden: false
+      interface: datetime
+      note: 'RFM: son bağış (Recency)'
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 28
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: last_donation_at
+      table: Contacts
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: first_donation_at
+    type: timestamp
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: first_donation_at
+      group: null
+      hidden: false
+      interface: datetime
+      note: 'RFM: ilk bağış'
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 29
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: first_donation_at
+      table: Contacts
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: donation_count
+    type: integer
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: donation_count
+      group: null
+      hidden: false
+      interface: input
+      note: 'RFM: bağış adedi (Frequency)'
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 30
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: donation_count
+      table: Contacts
+      data_type: integer
+      default_value: 0
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: donation_total
+    type: float
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: donation_total
+      group: null
+      hidden: false
+      interface: input
+      note: 'RFM: toplam tutar (Monetary)'
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 31
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: donation_total
+      table: Contacts
+      data_type: real
+      default_value: 0
+      max_length: null
+      numeric_precision: 24
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts
+    field: donation_types
+    type: json
+    meta:
+      collection: Contacts
+      conditions: null
+      display: null
+      display_options: null
+      field: donation_types
+      group: null
+      hidden: false
+      interface: input-code
+      note: 'RFM: {tip:{count,last}} — BTS özet'
+      options:
+        language: json
+      readonly: false
+      required: false
+      searchable: true
+      sort: 32
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: donation_types
+      table: Contacts
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts_files
+    field: id
+    type: uuid
+    meta:
+      collection: Contacts_files
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: Contacts_files
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Contacts_files
+    field: Contacts_id
+    type: uuid
+    meta:
+      collection: Contacts_files
+      conditions: null
+      display: null
+      display_options: null
+      field: Contacts_id
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: Contacts_id
+      table: Contacts_files
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: Contacts
+      foreign_key_column: id
+  - collection: Contacts_files
+    field: directus_files_id
+    type: uuid
+    meta:
+      collection: Contacts_files
+      conditions: null
+      display: null
+      display_options: null
+      field: directus_files_id
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: directus_files_id
+      table: Contacts_files
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: Notes
+    field: id
+    type: uuid
+    meta:
+      collection: Notes
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options:
+        iconLeft: event_note
+      readonly: true
+      required: false
+      searchable: true
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: Notes
+      data_type: uuid
+      default_value: gen_random_uuid()
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Notes
+    field: content
+    type: text
+    meta:
+      collection: Notes
+      conditions: null
+      display: null
+      display_options: null
+      field: content
+      group: null
+      hidden: false
+      interface: input-rich-text-md
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: content
+      table: Notes
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Notes
+    field: date
+    type: timestamp
+    meta:
+      collection: Notes
+      conditions: null
+      display: null
+      display_options: null
+      field: date
+      group: null
+      hidden: false
+      interface: datetime
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 3
+      special:
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: date
+      table: Notes
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Notes
+    field: created_by
+    type: uuid
+    meta:
+      collection: Notes
+      conditions: null
+      display: related-values
+      display_options:
+        template: '{{first_name}} {{last_name}}'
+      field: created_by
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 4
+      special:
+        - user-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: created_by
+      table: Notes
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: Notes
+    field: contact_id
+    type: uuid
+    meta:
+      collection: Notes
+      conditions: null
+      display: related-values
+      display_options:
+        template: '{{first_name}} {{last_name}}'
+      field: contact_id
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableLink: true
+      readonly: false
+      required: false
+      searchable: true
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: contact_id
+      table: Notes
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: Contacts
+      foreign_key_column: id
+  - collection: Opportunities
+    field: id
+    type: uuid
+    meta:
+      collection: Opportunities
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: Opportunities
+      data_type: uuid
+      default_value: gen_random_uuid()
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Opportunities
+    field: title
+    type: string
+    meta:
+      collection: Opportunities
+      conditions: null
+      display: null
+      display_options: null
+      field: title
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: title
+      table: Opportunities
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Opportunities
+    field: value
+    type: integer
+    meta:
+      collection: Opportunities
+      conditions: null
+      display: null
+      display_options: null
+      field: value
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: value
+      table: Opportunities
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Opportunities
+    field: stage
+    type: string
+    meta:
+      collection: Opportunities
+      conditions: null
+      display: null
+      display_options: null
+      field: stage
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: Draft
+            value: Draft
+          - text: Won
+            value: Won
+          - text: Lost
+            value: Lost
+      readonly: false
+      required: false
+      searchable: true
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: stage
+      table: Opportunities
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Opportunities
+    field: close_date
+    type: date
+    meta:
+      collection: Opportunities
+      conditions: null
+      display: null
+      display_options: null
+      field: close_date
+      group: null
+      hidden: false
+      interface: datetime
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: close_date
+      table: Opportunities
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Opportunities
+    field: contact_id
+    type: uuid
+    meta:
+      collection: Opportunities
+      conditions: null
+      display: related-values
+      display_options:
+        template: '{{first_name}} {{last_name}}'
+      field: contact_id
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: contact_id
+      table: Opportunities
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: Contacts
+      foreign_key_column: id
+  - collection: Tasks
+    field: id
+    type: uuid
+    meta:
+      collection: Tasks
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: Tasks
+      data_type: uuid
+      default_value: gen_random_uuid()
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Tasks
+    field: task_name
+    type: string
+    meta:
+      collection: Tasks
+      conditions: null
+      display: null
+      display_options: null
+      field: task_name
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: task_name
+      table: Tasks
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Tasks
+    field: due_date
+    type: timestamp
+    meta:
+      collection: Tasks
+      conditions: null
+      display: null
+      display_options: null
+      field: due_date
+      group: null
+      hidden: false
+      interface: datetime
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: due_date
+      table: Tasks
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Tasks
+    field: status
+    type: string
+    meta:
+      collection: Tasks
+      conditions: null
+      display: null
+      display_options: null
+      field: status
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: Todo
+            value: Todo
+          - text: Doing
+            value: Doing
+          - text: Done
+            value: Done
+      readonly: false
+      required: false
+      searchable: true
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: status
+      table: Tasks
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Tasks
+    field: assigned_to
+    type: uuid
+    meta:
+      collection: Tasks
+      conditions: null
+      display: related-values
+      display_options:
+        template: '{{first_name}} {{last_name}}'
+      field: assigned_to
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: assigned_to
+      table: Tasks
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: Tasks
+    field: related_contact
+    type: uuid
+    meta:
+      collection: Tasks
+      conditions: null
+      display: related-values
+      display_options:
+        template: '{{first_name}} {{last_name}}'
+      field: related_contact
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: related_contact
+      table: Tasks
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: Contacts
+      foreign_key_column: id
+  - collection: attribution_events
+    field: id
+    type: integer
+    meta:
+      collection: attribution_events
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: attribution_events
+      data_type: integer
+      default_value: nextval('attribution_events_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: attribution_events
+    field: timestamp
+    type: timestamp
+    meta:
+      collection: attribution_events
+      conditions: null
+      display: null
+      display_options: null
+      field: timestamp
+      group: null
+      hidden: false
+      interface: datetime
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: timestamp
+      table: attribution_events
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: attribution_events
+    field: mvr_uid
+    type: string
+    meta:
+      collection: attribution_events
+      conditions: null
+      display: null
+      display_options: null
+      field: mvr_uid
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: mvr_uid
+      table: attribution_events
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: attribution_events
+    field: mvr_cid
+    type: string
+    meta:
+      collection: attribution_events
+      conditions: null
+      display: null
+      display_options: null
+      field: mvr_cid
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: mvr_cid
+      table: attribution_events
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: attribution_events
+    field: action_type
+    type: string
+    meta:
+      collection: attribution_events
+      conditions: null
+      display: null
+      display_options: null
+      field: action_type
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: action_type
+      table: attribution_events
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: attribution_events
+    field: action_details
+    type: json
+    meta:
+      collection: attribution_events
+      conditions: null
+      display: null
+      display_options: null
+      field: action_details
+      group: null
+      hidden: false
+      interface: input-code
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 4
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: action_details
+      table: attribution_events
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: attribution_events
+    field: source
+    type: string
+    meta:
+      collection: attribution_events
+      conditions: null
+      display: null
+      display_options: null
+      field: source
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 9
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: source
+      table: attribution_events
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: attribution_events
+    field: mvruid_eslestirme
+    type: uuid
+    meta:
+      collection: attribution_events
+      conditions: null
+      display: null
+      display_options: null
+      field: mvruid_eslestirme
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableLink: true
+        template: '{{mvr_uid}}'
+      readonly: false
+      required: false
+      searchable: true
+      sort: 8
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: mvruid_eslestirme
+      table: attribution_events
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: Contacts
+      foreign_key_column: id
+  - collection: attribution_events
+    field: session_id
+    type: string
+    meta:
+      collection: attribution_events
+      conditions: null
+      display: null
+      display_options: null
+      field: session_id
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: session_id
+      table: attribution_events
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: automation_rules
+    field: id
+    type: uuid
+    meta:
+      collection: automation_rules
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: automation_rules
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: automation_rules
+    field: name
+    type: string
+    meta:
+      collection: automation_rules
+      conditions: null
+      display: null
+      display_options: null
+      field: name
+      group: null
+      hidden: false
+      interface: input
+      note: ''
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: name
+      table: automation_rules
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: automation_rules
+    field: is_active
+    type: boolean
+    meta:
+      collection: automation_rules
+      conditions: null
+      display: null
+      display_options: null
+      field: is_active
+      group: null
+      hidden: false
+      interface: boolean
+      note: kural aktif mi
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 3
+      special:
+        - cast-boolean
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: is_active
+      table: automation_rules
+      data_type: boolean
+      default_value: false
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: automation_rules
+    field: trigger_type
+    type: string
+    meta:
+      collection: automation_rules
+      conditions: null
+      display: null
+      display_options: null
+      field: trigger_type
+      group: null
+      hidden: false
+      interface: input
+      note: donation_type|inactivity|contact_created|...
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: trigger_type
+      table: automation_rules
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: automation_rules
+    field: trigger_params
+    type: json
+    meta:
+      collection: automation_rules
+      conditions: null
+      display: null
+      display_options: null
+      field: trigger_params
+      group: null
+      hidden: false
+      interface: input-code
+      note: '{donation_type, inactivity_days, ...}'
+      options:
+        language: json
+      readonly: false
+      required: false
+      searchable: true
+      sort: 5
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: trigger_params
+      table: automation_rules
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: automation_rules
+    field: conditions
+    type: json
+    meta:
+      collection: automation_rules
+      conditions: null
+      display: null
+      display_options: null
+      field: conditions
+      group: null
+      hidden: false
+      interface: input-code
+      note: '[{field, op, value}]'
+      options:
+        language: json
+      readonly: false
+      required: false
+      searchable: true
+      sort: 6
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: conditions
+      table: automation_rules
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: automation_rules
+    field: delay_value
+    type: integer
+    meta:
+      collection: automation_rules
+      conditions: null
+      display: null
+      display_options: null
+      field: delay_value
+      group: null
+      hidden: false
+      interface: input
+      note: gecikme miktarı
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: delay_value
+      table: automation_rules
+      data_type: integer
+      default_value: 0
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: automation_rules
+    field: delay_unit
+    type: string
+    meta:
+      collection: automation_rules
+      conditions: null
+      display: null
+      display_options: null
+      field: delay_unit
+      group: null
+      hidden: false
+      interface: input
+      note: minutes|hours|days|weeks|months
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: delay_unit
+      table: automation_rules
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: automation_rules
+    field: action_type
+    type: string
+    meta:
+      collection: automation_rules
+      conditions: null
+      display: null
+      display_options: null
+      field: action_type
+      group: null
+      hidden: false
+      interface: input
+      note: whatsapp|email|sms|create_task
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 9
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: action_type
+      table: automation_rules
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: automation_rules
+    field: action_params
+    type: json
+    meta:
+      collection: automation_rules
+      conditions: null
+      display: null
+      display_options: null
+      field: action_params
+      group: null
+      hidden: false
+      interface: input-code
+      note: '{template_ref, vars, assignee}'
+      options:
+        language: json
+      readonly: false
+      required: false
+      searchable: true
+      sort: 10
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: action_params
+      table: automation_rules
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: automation_rules
+    field: recheck_on_fire
+    type: boolean
+    meta:
+      collection: automation_rules
+      conditions: null
+      display: null
+      display_options: null
+      field: recheck_on_fire
+      group: null
+      hidden: false
+      interface: boolean
+      note: gönderim anında koşulu tekrar kontrol et
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 11
+      special:
+        - cast-boolean
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: recheck_on_fire
+      table: automation_rules
+      data_type: boolean
+      default_value: false
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: automation_rules
+    field: created_by
+    type: uuid
+    meta:
+      collection: automation_rules
+      conditions: null
+      display: null
+      display_options: null
+      field: created_by
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: ''
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 12
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: created_by
+      table: automation_rules
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: bts_sync_queue
+    field: payload
+    type: json
+    meta:
+      collection: bts_sync_queue
+      conditions: null
+      display: null
+      display_options: null
+      field: payload
+      group: null
+      hidden: false
+      interface: input-code
+      note: BTS tarafindan gonderilen ham donor payload'i.
+      options:
+        language: json
+      readonly: false
+      required: false
+      searchable: true
+      sort: 4
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: payload
+      table: bts_sync_queue
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: bts_sync_queue
+    field: retry_after
+    type: timestamp
+    meta:
+      collection: bts_sync_queue
+      conditions: null
+      display: datetime
+      display_options: null
+      field: retry_after
+      group: null
+      hidden: false
+      interface: datetime
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: retry_after
+      table: bts_sync_queue
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: bts_sync_queue
+    field: date_created
+    type: timestamp
+    meta:
+      collection: bts_sync_queue
+      conditions: null
+      display: datetime
+      display_options: null
+      field: date_created
+      group: null
+      hidden: false
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 7
+      special:
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: bts_sync_queue
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: bts_sync_queue
+    field: attempts
+    type: integer
+    meta:
+      collection: bts_sync_queue
+      conditions: null
+      display: null
+      display_options: null
+      field: attempts
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        min: 0
+      readonly: false
+      required: true
+      searchable: true
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: attempts
+      table: bts_sync_queue
+      data_type: integer
+      default_value: 0
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: bts_sync_queue
+    field: id
+    type: uuid
+    meta:
+      collection: bts_sync_queue
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: bts_sync_queue
+      data_type: uuid
+      default_value: gen_random_uuid()
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: bts_sync_queue
+    field: error_message
+    type: text
+    meta:
+      collection: bts_sync_queue
+      conditions: null
+      display: null
+      display_options: null
+      field: error_message
+      group: null
+      hidden: false
+      interface: input-multiline
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: error_message
+      table: bts_sync_queue
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: bts_sync_queue
+    field: status
+    type: string
+    meta:
+      collection: bts_sync_queue
+      conditions: null
+      display: labels
+      display_options:
+        choices:
+          - background: '#D32F2F'
+            foreground: '#FFFFFF'
+            text: Failed
+            value: failed
+          - background: '#FBC02D'
+            foreground: '#18222F'
+            text: Retrying
+            value: retrying
+          - background: '#388E3C'
+            foreground: '#FFFFFF'
+            text: Resolved
+            value: resolved
+      field: status
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: Failed
+            value: failed
+          - text: Retrying
+            value: retrying
+          - text: Resolved
+            value: resolved
+      readonly: false
+      required: true
+      searchable: true
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: status
+      table: bts_sync_queue
+      data_type: character varying
+      default_value: failed
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: campaign_recipients
+    field: id
+    type: integer
+    meta:
+      collection: campaign_recipients
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: campaign_recipients
+      data_type: integer
+      default_value: nextval('campaign_recipients_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: campaign_recipients
+    field: campaign_id
+    type: uuid
+    meta:
+      collection: campaign_recipients
+      conditions: null
+      display: null
+      display_options: null
+      field: campaign_id
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: ''
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 2
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: campaign_id
+      table: campaign_recipients
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: campaigns
+      foreign_key_column: id
+  - collection: campaign_recipients
+    field: contact_id
+    type: uuid
+    meta:
+      collection: campaign_recipients
+      conditions: null
+      display: null
+      display_options: null
+      field: contact_id
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: ''
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 3
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: contact_id
+      table: campaign_recipients
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: Contacts
+      foreign_key_column: id
+  - collection: campaign_recipients
+    field: status
+    type: string
+    meta:
+      collection: campaign_recipients
+      conditions: null
+      display: null
+      display_options: null
+      field: status
+      group: null
+      hidden: false
+      interface: input
+      note: queued|sent|delivered|read|failed|skipped
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: status
+      table: campaign_recipients
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: campaign_recipients
+    field: provider_message_id
+    type: string
+    meta:
+      collection: campaign_recipients
+      conditions: null
+      display: null
+      display_options: null
+      field: provider_message_id
+      group: null
+      hidden: false
+      interface: input
+      note: ''
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: provider_message_id
+      table: campaign_recipients
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: campaign_recipients
+    field: error
+    type: text
+    meta:
+      collection: campaign_recipients
+      conditions: null
+      display: null
+      display_options: null
+      field: error
+      group: null
+      hidden: false
+      interface: input-multiline
+      note: ''
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: error
+      table: campaign_recipients
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: campaign_recipients
+    field: updated_at
+    type: timestamp
+    meta:
+      collection: campaign_recipients
+      conditions: null
+      display: null
+      display_options: null
+      field: updated_at
+      group: null
+      hidden: false
+      interface: datetime
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: updated_at
+      table: campaign_recipients
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: campaigns
+    field: id
+    type: uuid
+    meta:
+      collection: campaigns
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: campaigns
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: campaigns
+    field: name
+    type: string
+    meta:
+      collection: campaigns
+      conditions: null
+      display: null
+      display_options: null
+      field: name
+      group: null
+      hidden: false
+      interface: input
+      note: ''
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: name
+      table: campaigns
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: campaigns
+    field: channel
+    type: string
+    meta:
+      collection: campaigns
+      conditions: null
+      display: null
+      display_options: null
+      field: channel
+      group: null
+      hidden: false
+      interface: input
+      note: email|whatsapp|sms
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: channel
+      table: campaigns
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: campaigns
+    field: template_ref
+    type: string
+    meta:
+      collection: campaigns
+      conditions: null
+      display: null
+      display_options: null
+      field: template_ref
+      group: null
+      hidden: false
+      interface: input
+      note: ''
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: template_ref
+      table: campaigns
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: campaigns
+    field: segment
+    type: json
+    meta:
+      collection: campaigns
+      conditions: null
+      display: null
+      display_options: null
+      field: segment
+      group: null
+      hidden: false
+      interface: input-code
+      note: hedef kitle filtresi
+      options:
+        language: json
+      readonly: false
+      required: false
+      searchable: true
+      sort: 5
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: segment
+      table: campaigns
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: campaigns
+    field: status
+    type: string
+    meta:
+      collection: campaigns
+      conditions: null
+      display: null
+      display_options: null
+      field: status
+      group: null
+      hidden: false
+      interface: input
+      note: draft|queued|sending|done|failed
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: status
+      table: campaigns
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: campaigns
+    field: triggered_at
+    type: timestamp
+    meta:
+      collection: campaigns
+      conditions: null
+      display: null
+      display_options: null
+      field: triggered_at
+      group: null
+      hidden: false
+      interface: datetime
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: triggered_at
+      table: campaigns
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: campaigns
+    field: counts
+    type: json
+    meta:
+      collection: campaigns
+      conditions: null
+      display: null
+      display_options: null
+      field: counts
+      group: null
+      hidden: false
+      interface: input-code
+      note: '{total,sent,failed,skipped}'
+      options:
+        language: json
+      readonly: false
+      required: false
+      searchable: true
+      sort: 8
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: counts
+      table: campaigns
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: campaigns
+    field: created_by
+    type: uuid
+    meta:
+      collection: campaigns
+      conditions: null
+      display: null
+      display_options: null
+      field: created_by
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: ''
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 9
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: created_by
+      table: campaigns
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: consent_log
+    field: id
+    type: integer
+    meta:
+      collection: consent_log
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: consent_log
+      data_type: integer
+      default_value: nextval('consent_log_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: consent_log
+    field: contact_id
+    type: uuid
+    meta:
+      collection: consent_log
+      conditions: null
+      display: null
+      display_options: null
+      field: contact_id
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: ''
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 2
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: contact_id
+      table: consent_log
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: Contacts
+      foreign_key_column: id
+  - collection: consent_log
+    field: channel
+    type: string
+    meta:
+      collection: consent_log
+      conditions: null
+      display: null
+      display_options: null
+      field: channel
+      group: null
+      hidden: false
+      interface: input
+      note: email|whatsapp|sms|voice
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: channel
+      table: consent_log
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: consent_log
+    field: action
+    type: string
+    meta:
+      collection: consent_log
+      conditions: null
+      display: null
+      display_options: null
+      field: action
+      group: null
+      hidden: false
+      interface: input
+      note: optin|ret|hardbounce|complaint
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: action
+      table: consent_log
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: consent_log
+    field: source
+    type: string
+    meta:
+      collection: consent_log
+      conditions: null
+      display: null
+      display_options: null
+      field: source
+      group: null
+      hidden: false
+      interface: input
+      note: form|iys|eo|netgsm|manual
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: source
+      table: consent_log
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: consent_log
+    field: consent_text_version
+    type: string
+    meta:
+      collection: consent_log
+      conditions: null
+      display: null
+      display_options: null
+      field: consent_text_version
+      group: null
+      hidden: false
+      interface: input
+      note: ''
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: consent_text_version
+      table: consent_log
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: consent_log
+    field: ip
+    type: string
+    meta:
+      collection: consent_log
+      conditions: null
+      display: null
+      display_options: null
+      field: ip
+      group: null
+      hidden: false
+      interface: input
+      note: ''
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: ip
+      table: consent_log
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: consent_log
+    field: occurred_at
+    type: timestamp
+    meta:
+      collection: consent_log
+      conditions: null
+      display: null
+      display_options: null
+      field: occurred_at
+      group: null
+      hidden: false
+      interface: datetime
+      note: olay zamanı
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: occurred_at
+      table: consent_log
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: master_blacklist
+    field: id
+    type: integer
+    meta:
+      collection: master_blacklist
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: master_blacklist
+      data_type: integer
+      default_value: nextval('master_blacklist_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: master_blacklist
+    field: value
+    type: string
+    meta:
+      collection: master_blacklist
+      conditions: null
+      display: null
+      display_options: null
+      field: value
+      group: null
+      hidden: false
+      interface: input
+      note: telefon (E.164) veya email
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: value
+      table: master_blacklist
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: master_blacklist
+    field: channel
+    type: string
+    meta:
+      collection: master_blacklist
+      conditions: null
+      display: null
+      display_options: null
+      field: channel
+      group: null
+      hidden: false
+      interface: input
+      note: email|whatsapp|sms|voice|global
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: channel
+      table: master_blacklist
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: master_blacklist
+    field: reason
+    type: string
+    meta:
+      collection: master_blacklist
+      conditions: null
+      display: null
+      display_options: null
+      field: reason
+      group: null
+      hidden: false
+      interface: input
+      note: ''
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: reason
+      table: master_blacklist
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: master_blacklist
+    field: blocked_at
+    type: timestamp
+    meta:
+      collection: master_blacklist
+      conditions: null
+      display: null
+      display_options: null
+      field: blocked_at
+      group: null
+      hidden: false
+      interface: datetime
+      note: engellenme
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: blocked_at
+      table: master_blacklist
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: webhook_events
+    field: id
+    type: string
+    meta:
+      collection: webhook_events
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: false
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: webhook_events
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_indexed: false
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: webhook_events
+    field: provider
+    type: string
+    meta:
+      collection: webhook_events
+      conditions: null
+      display: null
+      display_options: null
+      field: provider
+      group: null
+      hidden: false
+      interface: input
+      note: netgsm|monochat|emailoctopus|woo
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: provider
+      table: webhook_events
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: webhook_events
+    field: payload_hash
+    type: string
+    meta:
+      collection: webhook_events
+      conditions: null
+      display: null
+      display_options: null
+      field: payload_hash
+      group: null
+      hidden: false
+      interface: input
+      note: ''
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: payload_hash
+      table: webhook_events
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: webhook_events
+    field: received_at
+    type: timestamp
+    meta:
+      collection: webhook_events
+      conditions: null
+      display: null
+      display_options: null
+      field: received_at
+      group: null
+      hidden: false
+      interface: datetime
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: received_at
+      table: webhook_events
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: webhook_events
+    field: processed_at
+    type: timestamp
+    meta:
+      collection: webhook_events
+      conditions: null
+      display: null
+      display_options: null
+      field: processed_at
+      group: null
+      hidden: false
+      interface: datetime
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: processed_at
+      table: webhook_events
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+systemFields: []
+relations:
+  - collection: Calendar_Events
+    field: contact_id
+    related_collection: Contacts
+    meta:
+      junction_field: null
+      many_collection: Calendar_Events
+      many_field: contact_id
+      one_allowed_collections: null
+      one_collection: Contacts
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: calendar_events
+      sort_field: null
+    schema:
+      table: Calendar_Events
+      column: contact_id
+      foreign_key_table: Contacts
+      foreign_key_column: id
+      constraint_name: calendar_events_contact_id_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: Contacts_files
+    field: Contacts_id
+    related_collection: Contacts
+    meta:
+      junction_field: directus_files_id
+      many_collection: Contacts_files
+      many_field: Contacts_id
+      one_allowed_collections: null
+      one_collection: Contacts
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: files
+      sort_field: null
+    schema:
+      table: Contacts_files
+      column: Contacts_id
+      foreign_key_table: Contacts
+      foreign_key_column: id
+      constraint_name: contacts_files_contacts_id_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: Contacts_files
+    field: directus_files_id
+    related_collection: directus_files
+    meta:
+      junction_field: Contacts_id
+      many_collection: Contacts_files
+      many_field: directus_files_id
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: Contacts_files
+      column: directus_files_id
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: contacts_files_directus_files_id_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: Notes
+    field: contact_id
+    related_collection: Contacts
+    meta:
+      junction_field: null
+      many_collection: Notes
+      many_field: contact_id
+      one_allowed_collections: null
+      one_collection: Contacts
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: notes
+      sort_field: null
+    schema:
+      table: Notes
+      column: contact_id
+      foreign_key_table: Contacts
+      foreign_key_column: id
+      constraint_name: notes_contact_id_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: Notes
+    field: created_by
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: Notes
+      many_field: created_by
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: Notes
+      column: created_by
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: notes_created_by_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: Opportunities
+    field: contact_id
+    related_collection: Contacts
+    meta:
+      junction_field: null
+      many_collection: Opportunities
+      many_field: contact_id
+      one_allowed_collections: null
+      one_collection: Contacts
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: opportunities
+      sort_field: null
+    schema:
+      table: Opportunities
+      column: contact_id
+      foreign_key_table: Contacts
+      foreign_key_column: id
+      constraint_name: opportunities_contact_id_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: Tasks
+    field: assigned_to
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: Tasks
+      many_field: assigned_to
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: Tasks
+      column: assigned_to
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: tasks_assigned_to_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: Tasks
+    field: related_contact
+    related_collection: Contacts
+    meta:
+      junction_field: null
+      many_collection: Tasks
+      many_field: related_contact
+      one_allowed_collections: null
+      one_collection: Contacts
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: tasks
+      sort_field: null
+    schema:
+      table: Tasks
+      column: related_contact
+      foreign_key_table: Contacts
+      foreign_key_column: id
+      constraint_name: tasks_related_contact_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: attribution_events
+    field: mvruid_eslestirme
+    related_collection: Contacts
+    meta:
+      junction_field: null
+      many_collection: attribution_events
+      many_field: mvruid_eslestirme
+      one_allowed_collections: null
+      one_collection: Contacts
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: attribution_events
+      sort_field: null
+    schema:
+      table: attribution_events
+      column: mvruid_eslestirme
+      foreign_key_table: Contacts
+      foreign_key_column: id
+      constraint_name: attribution_events_mvruid_eslestirme_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: automation_rules
+    field: created_by
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: automation_rules
+      many_field: created_by
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: automation_rules
+      column: created_by
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: automation_rules_created_by_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: campaign_recipients
+    field: campaign_id
+    related_collection: campaigns
+    meta:
+      junction_field: null
+      many_collection: campaign_recipients
+      many_field: campaign_id
+      one_allowed_collections: null
+      one_collection: campaigns
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: campaign_recipients
+      column: campaign_id
+      foreign_key_table: campaigns
+      foreign_key_column: id
+      constraint_name: campaign_recipients_campaign_id_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: campaign_recipients
+    field: contact_id
+    related_collection: Contacts
+    meta:
+      junction_field: null
+      many_collection: campaign_recipients
+      many_field: contact_id
+      one_allowed_collections: null
+      one_collection: Contacts
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: campaign_recipients
+      column: contact_id
+      foreign_key_table: Contacts
+      foreign_key_column: id
+      constraint_name: campaign_recipients_contact_id_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: campaigns
+    field: created_by
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: campaigns
+      many_field: created_by
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: campaigns
+      column: created_by
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: campaigns_created_by_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: consent_log
+    field: contact_id
+    related_collection: Contacts
+    meta:
+      junction_field: null
+      many_collection: consent_log
+      many_field: contact_id
+      one_allowed_collections: null
+      one_collection: Contacts
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: consent_log
+      column: contact_id
+      foreign_key_table: Contacts
+      foreign_key_column: id
+      constraint_name: consent_log_contact_id_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL

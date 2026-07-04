@@ -1,0 +1,55 @@
+# LOKAL geliştirme ortamı.
+# Amaç: canlı Directus'un ŞEMASINI (pre-work/snapshot.yaml) aynalayıp,
+# sahte veriyle geliştirmek. Gerçek bağışçı PII'si buraya konmaz (KVKK).
+#
+# Prod'da middleware Coolify'da koşar; Directus'lar zaten ayrı/canlıdır.
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: directus
+      POSTGRES_PASSWORD: directus
+      POSTGRES_DB: directus
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redisdata:/data
+    ports:
+      - "6379:6379"
+
+  # Canlıyla AYNI sürüm (snapshot: directus 11.17.4)
+  directus:
+    image: directus/directus:11.17.4
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    ports:
+      - "8055:8055"
+    environment:
+      SECRET: "lokal-dev-secret-degistir"
+      DB_CLIENT: pg
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: directus
+      DB_USER: directus
+      DB_PASSWORD: directus
+      CACHE_ENABLED: "false"
+      ADMIN_EMAIL: "admin@mavera.com"
+      ADMIN_PASSWORD: "admin12345"
+      # Şema apply için statik admin token (lokal):
+      ADMIN_TOKEN: "lokal-admin-token"
+    volumes:
+      - directus_uploads:/directus/uploads
+
+volumes:
+  pgdata:
+  redisdata:
+  directus_uploads:

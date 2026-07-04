@@ -1,0 +1,9 @@
+node_modules
+dist
+web
+.git
+.env
+.env.*
+config/derneks.json
+*.log
+pre-work

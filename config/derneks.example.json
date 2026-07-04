@@ -1,0 +1,34 @@
+{
+  "_aciklama": "Dernek registry — tenant_id yerine bu. Gerçek dosya config/derneks.json (git'e girmez). Her derneğin kendi Directus'u + kendi kanal anahtarları.",
+  "dernek-a": {
+    "name": "Dernek A",
+    "directus": {
+      "url": "https://crm-a.ornek.org",
+      "token": "DIRECTUS_STATIC_TOKEN_A"
+    },
+    "emailoctopus": {
+      "apiKey": "eo_xxx",
+      "listId": "list_xxx"
+    },
+    "netgsm": {
+      "user": "xxx",
+      "pass": "xxx",
+      "iysBrandCode": "IYS_MARKA_KODU_A"
+    },
+    "monochat": {
+      "slug": "dernek-a-slug",
+      "token": "mc_xxx"
+    },
+    "bts": {
+      "dernekRef": "A"
+    }
+  },
+  "dernek-b": {
+    "name": "Dernek B",
+    "directus": { "url": "https://crm-b.ornek.org", "token": "..." },
+    "emailoctopus": { "apiKey": "...", "listId": "..." },
+    "netgsm": { "user": "...", "pass": "...", "iysBrandCode": "..." },
+    "monochat": { "slug": "...", "token": "..." },
+    "bts": { "dernekRef": "B" }
+  }
+}
