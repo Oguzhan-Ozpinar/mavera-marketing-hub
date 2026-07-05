@@ -49,10 +49,18 @@ let registry: Record<string, DernekConfig> | null = null;
 
 export function loadRegistry(): Record<string, DernekConfig> {
   if (registry) return registry;
-  // Öncelik: DERNEK_REGISTRY env (JSON string, prod/Coolify) → yoksa dosya
+  // Öncelik: DERNEK_REGISTRY env (JSON veya base64) → yoksa dosya
   let raw: string;
   if (env.DERNEK_REGISTRY) {
-    raw = env.DERNEK_REGISTRY;
+    raw = env.DERNEK_REGISTRY.trim();
+    // Base64 verildiyse çöz (Coolify'da tırnak/özel karakter sorunlarını önler)
+    if (!raw.startsWith("{")) {
+      try {
+        raw = Buffer.from(raw, "base64").toString("utf8");
+      } catch {
+        /* base64 değilse olduğu gibi bırak */
+      }
+    }
   } else {
     const path = resolve(process.cwd(), env.DERNEK_REGISTRY_PATH);
     try {
