@@ -3,6 +3,7 @@
  * Dernek-guard sayesinde her zaman req.dernekContext (kullanıcının kendi derneği) kullanılır.
  */
 import type { FastifyInstance } from "fastify";
+import { readItem, readItems } from "@directus/sdk";
 import { requirePermission } from "../../auth/auth.plugin.js";
 import { upsertContact, type ContactInput, type ConsentSource } from "./upsert.service.js";
 import { handleEvent } from "../journeys/journey.engine.js";
@@ -37,6 +38,35 @@ export async function registerContactRoutes(app: FastifyInstance) {
       }),
     );
     return { contacts, page, limit };
+  });
+
+  // Kontakt pazarlama özeti (salt-okunur): RFM + izin geçmişi + giden kampanyalar + Directus linki
+  app.get("/contacts/:id/summary", { preHandler: requirePermission("contacts.read") }, async (req) => {
+    const ctx = req.dernekContext!;
+    const { id } = req.params as { id: string };
+    const contact = await ctx.directus.request(
+      readItem("Contacts", id, {
+        fields: ["id", "first_name", "last_name", "phone", "email", "mvr_uid", "referans", "ulke",
+          "whatsapp_optin", "mail_optin", "sms_optin",
+          "donation_count", "donation_total", "last_donation_at", "first_donation_at", "donation_type_list"],
+      }),
+    );
+    const consent = await ctx.directus.request(
+      readItems("consent_log", { filter: { contact_id: { _eq: id } } as any, sort: ["-occurred_at"], limit: 20,
+        fields: ["channel", "action", "source", "occurred_at"] }),
+    );
+    const campaigns = await ctx.directus.request(
+      readItems("campaign_recipients", { filter: { contact_id: { _eq: id } } as any, sort: ["-updated_at"], limit: 50,
+        fields: ["status", "to", "updated_at", "campaign_id.name", "campaign_id.channel"] }),
+    );
+    let events: unknown[] = [];
+    try {
+      events = await ctx.directus.request(
+        readItems("attribution_events", { filter: { mvruid_eslestirme: { _eq: id } } as any, sort: ["-timestamp"], limit: 20,
+          fields: ["timestamp", "action_type", "source", "action_details"] }),
+      );
+    } catch { /* attribution boş olabilir */ }
+    return { contact, consent, campaigns, events, directusUrl: ctx.config.directus.url };
   });
 
   app.post(

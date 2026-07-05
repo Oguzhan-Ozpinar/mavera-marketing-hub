@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { api } from "../lib/api";
 
 interface Contact {
@@ -76,8 +77,12 @@ export default function Contacts() {
             </thead>
             <tbody>
               {rows.map((c) => (
-                <tr key={c.id} className="border-t border-slate-100">
-                  <td className="px-4 py-3 font-medium">{`${c.first_name ?? ""} ${c.last_name ?? ""}`.trim() || "—"}</td>
+                <tr key={c.id} className="border-t border-slate-100 hover:bg-slate-50">
+                  <td className="px-4 py-3 font-medium">
+                    <Link to={`/contacts/${c.id}`} className="text-indigo-700 hover:underline">
+                      {`${c.first_name ?? ""} ${c.last_name ?? ""}`.trim() || "—"}
+                    </Link>
+                  </td>
                   <td className="px-4 py-3">{c.phone ?? "—"}</td>
                   <td className="px-4 py-3">{c.email ?? "—"}</td>
                   <td className="px-4 py-3 space-x-1">

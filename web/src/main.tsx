@@ -14,6 +14,7 @@ import Automations from "./pages/Automations";
 import NewAutomation from "./pages/NewAutomation";
 import Settings from "./pages/Settings";
 import Contacts from "./pages/Contacts";
+import ContactDetail from "./pages/ContactDetail";
 
 function Protected({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -46,6 +47,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="automations/:id/edit" element={<NewAutomation />} />
             <Route path="settings" element={<Settings />} />
             <Route path="contacts" element={<Contacts />} />
+            <Route path="contacts/:id" element={<ContactDetail />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
