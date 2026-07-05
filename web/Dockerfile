@@ -1,10 +1,11 @@
 # Web (Vite SPA) → nginx ile statik servis
+# NOT: Build context = repo KÖKÜ (Coolify Base Directory "/"), o yüzden yollar web/ önekli.
 FROM node:22-alpine AS build
 WORKDIR /app
-COPY package*.json ./
+COPY web/package*.json ./
 RUN npm ci
-COPY . .
-# Prod API adresi build anında gömülür (Coolify'da VITE_API_URL ver)
+COPY web/ ./
+# Prod API adresi build anında gömülür (Coolify'da VITE_API_URL build variable)
 ARG VITE_API_URL
 ENV VITE_API_URL=$VITE_API_URL
 RUN npm run build
