@@ -205,6 +205,7 @@ async function main() {
   await ensureField("campaigns", jsonField("counts", "{total,sent,failed,skipped}"));
   await ensureField("campaigns", strField("language", "şablon dili (tr, tr-TR...)"));
   await ensureField("campaigns", jsonField("template_vars", "{header:[tokens], body:[tokens]} — değişken eşleme"));
+  await ensureField("campaigns", strField("header_media", "medya header'lı şablonlar için görsel/video URL'i"));
   await ensureField("campaigns", textField("message", "SMS/düz metin gövdesi"));
   await ensureField("campaigns", strField("iysfilter", "SMS İYS: 11=ticari(İYS), 0=bilgilendirme(İYS yok)"));
   await ensureField("campaigns", strField("audience_type", "segment | manual"));

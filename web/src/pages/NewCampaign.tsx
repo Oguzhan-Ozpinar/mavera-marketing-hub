@@ -39,6 +39,8 @@ export default function NewCampaign() {
   const [language, setLanguage] = useState("tr");
   const [headerVars, setHeaderVars] = useState<string[]>([]);
   const [bodyVars, setBodyVars] = useState<string[]>([]);
+  const [headerFormat, setHeaderFormat] = useState<string | undefined>(undefined);
+  const [headerMedia, setHeaderMedia] = useState("");
   const [message, setMessage] = useState("");
   const [iysfilter, setIysfilter] = useState("11");
   const [rules, setRules] = useState<Rule[]>([]);
@@ -50,6 +52,9 @@ export default function NewCampaign() {
   const [err, setErr] = useState("");
   const [testTo, setTestTo] = useState("");
   const [testMsg, setTestMsg] = useState("");
+  const [testHeader, setTestHeader] = useState<string[]>([]);
+  const [testBody, setTestBody] = useState<string[]>([]);
+  const [testMedia, setTestMedia] = useState("");
 
   useEffect(() => {
     api<{ fields: FieldMeta[] }>("/segments/fields").then((r) => setFields(r.fields)).catch(() => {});
@@ -112,6 +117,7 @@ export default function NewCampaign() {
         body: JSON.stringify({
           name, channel, template_ref: templateRef, language,
           template_vars: { header: headerVars, body: bodyVars },
+          header_media: headerMedia,
           message, iysfilter,
           audience_type: audienceType,
           manual_recipients: audienceType === "manual" ? manualRecipients : [],
@@ -133,7 +139,7 @@ export default function NewCampaign() {
         method: "POST",
         body: JSON.stringify({
           to: testTo, channel, template_ref: templateRef, language,
-          template_vars: { header: headerVars, body: bodyVars }, message, iysfilter,
+          header: testHeader, body: testBody, header_media: testMedia, message, iysfilter,
         }),
       });
       setTestMsg(r.dryRun ? "✓ Gönderildi (dry-run — anahtar yok)" : "✓ Test gönderildi");
@@ -160,8 +166,13 @@ export default function NewCampaign() {
         {channel === "whatsapp" && (
           <div className="rounded-lg border border-slate-200 p-4">
             <WhatsappTemplateFields
-              value={{ templateRef, language, headerVars, bodyVars }}
-              onChange={(v) => { setTemplateRef(v.templateRef); setLanguage(v.language); setHeaderVars(v.headerVars); setBodyVars(v.bodyVars); }}
+              value={{ templateRef, language, headerVars, bodyVars, headerFormat, headerMedia }}
+              onChange={(v) => {
+                setTemplateRef(v.templateRef); setLanguage(v.language);
+                setHeaderVars(v.headerVars); setBodyVars(v.bodyVars);
+                setHeaderFormat(v.headerFormat); setHeaderMedia(v.headerMedia ?? "");
+                setTestHeader(Array(v.headerVars.length).fill("")); setTestBody(Array(v.bodyVars.length).fill("")); setTestMedia("");
+              }}
             />
           </div>
         )}
@@ -269,14 +280,25 @@ export default function NewCampaign() {
         )}
 
         {/* Test gönderim */}
-        <div className="rounded-lg border border-dashed border-slate-300 p-4 bg-slate-50">
-          <label className="block text-sm font-medium mb-1">🧪 Test gönder</label>
-          <p className="text-xs text-slate-500 mb-2">Kampanyayı kaydetmeden tek bir numaraya/e-postaya dene (örnek verilerle).</p>
+        <div className="rounded-lg border border-dashed border-slate-300 p-4 bg-slate-50 space-y-2">
+          <label className="block text-sm font-medium">🧪 Test gönder</label>
+          <p className="text-xs text-slate-500">Kampanyayı kaydetmeden tek bir numaraya/e-postaya dene. Değişkenli/medya şablonlarda test değerlerini aşağıya gir.</p>
+
+          {channel === "whatsapp" && headerFormat && ["IMAGE", "VIDEO", "DOCUMENT"].includes(headerFormat) && (
+            <input className={inputCls} value={testMedia} onChange={(e) => setTestMedia(e.target.value)} placeholder="Test medya URL'i (görsel/video)" />
+          )}
+          {channel === "whatsapp" && testHeader.map((v, i) => (
+            <input key={`th${i}`} className={inputCls} value={v} onChange={(e) => setTestHeader(testHeader.map((x, idx) => idx === i ? e.target.value : x))} placeholder={`Test Header {{${i + 1}}}`} />
+          ))}
+          {channel === "whatsapp" && testBody.map((v, i) => (
+            <input key={`tb${i}`} className={inputCls} value={v} onChange={(e) => setTestBody(testBody.map((x, idx) => idx === i ? e.target.value : x))} placeholder={`Test Body {{${i + 1}}}`} />
+          ))}
+
           <div className="flex items-center gap-2">
             <input className={inputCls} value={testTo} onChange={(e) => setTestTo(e.target.value)} placeholder={channel === "email" ? "test@ornek.com" : "905XXXXXXXXX"} />
-            <button onClick={testSend} className="px-4 py-2 rounded-lg border border-slate-300 text-sm font-medium hover:bg-white whitespace-nowrap">Test gönder</button>
+            <button onClick={testSend} className="px-4 py-2 rounded-lg border border-slate-300 text-sm font-medium hover:bg-white active:bg-slate-100 transition-colors whitespace-nowrap">Test gönder</button>
           </div>
-          {testMsg && <p className={`text-sm mt-2 ${testMsg.startsWith("✓") ? "text-emerald-600" : "text-red-600"}`}>{testMsg}</p>}
+          {testMsg && <p className={`text-sm mt-1 ${testMsg.startsWith("✓") ? "text-emerald-600" : "text-red-600"}`}>{testMsg}</p>}
         </div>
 
         {err && <p className="text-sm text-red-600">{err}</p>}

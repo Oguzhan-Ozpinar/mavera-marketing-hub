@@ -77,6 +77,7 @@ export default function NewAutomation() {
           language: p.language ?? "tr",
           headerVars: p.template_vars?.header ?? [],
           bodyVars: p.template_vars?.body ?? [],
+          headerMedia: p.header_media ?? "",
         });
       } else {
         setActionParams(p);
@@ -105,7 +106,7 @@ export default function NewAutomation() {
           action_type: actionType,
           action_params:
             actionType === "whatsapp"
-              ? { template_ref: wa.templateRef, language: wa.language, template_vars: { header: wa.headerVars, body: wa.bodyVars } }
+              ? { template_ref: wa.templateRef, language: wa.language, template_vars: { header: wa.headerVars, body: wa.bodyVars }, header_media: wa.headerMedia }
               : actionParams,
           recheck_on_fire: recheck,
         }),

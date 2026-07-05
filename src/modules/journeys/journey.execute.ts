@@ -45,7 +45,7 @@ export async function executeJourney(ctx: DernekContext, ruleId: string, contact
     // WhatsApp şablon değişkenlerini kişiye göre çöz
     const tv = (params.template_vars ?? {}) as { header?: string[]; body?: string[] };
     const vars = {
-      header: (tv.header ?? []).map((t) => resolveToken(contact as Record<string, any>, t)),
+      header: params.header_media ? [params.header_media as string] : (tv.header ?? []).map((t) => resolveToken(contact as Record<string, any>, t)),
       body: (tv.body ?? []).map((t) => resolveToken(contact as Record<string, any>, t)),
     };
     const result = await sendMessage(ctx, {

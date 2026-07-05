@@ -25,7 +25,11 @@ export interface WaTemplateValue {
   language: string;
   headerVars: string[];
   bodyVars: string[];
+  headerFormat?: string; // TEXT | IMAGE | VIDEO | DOCUMENT
+  headerMedia?: string; // medya header URL
 }
+
+const MEDIA = ["IMAGE", "VIDEO", "DOCUMENT"];
 
 export default function WhatsappTemplateFields({
   value,
@@ -53,6 +57,8 @@ export default function WhatsappTemplateFields({
       language: t?.languageCode ?? "tr",
       headerVars: Array.from({ length: t?.headerVarCount ?? 0 }, () => "fullName"),
       bodyVars: Array.from({ length: t?.bodyVarCount ?? 0 }, () => "fullName"),
+      headerFormat: t?.headerFormat,
+      headerMedia: "",
     });
   };
 
@@ -75,6 +81,18 @@ export default function WhatsappTemplateFields({
         <>
           {selected.bodyText && (
             <div className="text-sm text-slate-500 bg-slate-50 rounded p-3 whitespace-pre-wrap">{selected.bodyText}</div>
+          )}
+          {MEDIA.includes(selected.headerFormat ?? "") && (
+            <div>
+              <label className="block text-sm font-medium mb-1">Header medya URL'i ({selected.headerFormat})</label>
+              <input
+                className={inputCls}
+                value={value.headerMedia ?? ""}
+                onChange={(e) => onChange({ ...value, headerMedia: e.target.value })}
+                placeholder="https://.../gorsel.jpg (herkese açık URL)"
+              />
+              <p className="text-xs text-slate-400 mt-1">Bu şablonun başlığı medya; göndermek için herkese açık bir görsel/video/döküman URL'i gerekir.</p>
+            </div>
           )}
           {value.headerVars.map((v, i) => (
             <VarRow key={`h${i}`} label={`Header {{${i + 1}}}`} value={v}

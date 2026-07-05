@@ -16,6 +16,7 @@ export interface CreateCampaignInput {
   template_ref?: string;
   language?: string;
   template_vars?: { header?: string[]; body?: string[] }; // token eşlemesi
+  header_media?: string; // medya header'lı şablon için URL
   message?: string; // SMS düz metin
   iysfilter?: "0" | "11" | "12"; // SMS İYS tipi
   segment?: Record<string, unknown>;
@@ -32,6 +33,7 @@ export async function createCampaign(ctx: DernekContext, input: CreateCampaignIn
       template_ref: input.template_ref ?? null,
       language: input.language ?? "tr",
       template_vars: input.template_vars ?? {},
+      header_media: input.header_media ?? null,
       message: input.message ?? null,
       iysfilter: input.iysfilter ?? "11",
       segment: input.segment ?? {},
@@ -82,7 +84,7 @@ export interface TriggerResult {
 export async function triggerCampaign(ctx: DernekContext, campaignId: string): Promise<TriggerResult> {
   const campaign = (await ctx.directus.request(
     readItem("campaigns", campaignId, {
-      fields: ["id", "channel", "template_ref", "language", "template_vars", "message", "iysfilter", "segment", "audience_type", "manual_recipients", "status"],
+      fields: ["id", "channel", "template_ref", "language", "template_vars", "header_media", "message", "iysfilter", "segment", "audience_type", "manual_recipients", "status"],
     }),
   )) as {
     id: string;
@@ -90,6 +92,7 @@ export async function triggerCampaign(ctx: DernekContext, campaignId: string): P
     template_ref?: string;
     language?: string;
     template_vars?: { header?: string[]; body?: string[] };
+    header_media?: string;
     message?: string;
     iysfilter?: "0" | "11" | "12";
     segment?: Record<string, unknown>;
@@ -128,7 +131,8 @@ export async function triggerCampaign(ctx: DernekContext, campaignId: string): P
   let queued = 0;
   for (const r of recipients) {
     const vars = {
-      header: (tv.header ?? []).map((t) => resolveToken(r.contact, t)),
+      // Medya header'lı şablon → header param = medya URL; değilse metin değişkenleri
+      header: campaign.header_media ? [campaign.header_media] : (tv.header ?? []).map((t) => resolveToken(r.contact, t)),
       body: (tv.body ?? []).map((t) => resolveToken(r.contact, t)),
     };
     const rec = (await ctx.directus.request(
