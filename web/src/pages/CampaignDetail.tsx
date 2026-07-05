@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { api } from "../lib/api";
 
 interface Recipient {
@@ -28,17 +28,19 @@ const RSTATUS: Record<string, { label: string; cls: string }> = {
 
 export default function CampaignDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [r, setR] = useState<Report | null>(null);
   const [loading, setLoading] = useState(true);
   const [newTime, setNewTime] = useState("");
   const [msg, setMsg] = useState("");
+  const [deleting, setDeleting] = useState(false);
 
   const load = () => api<Report>(`/campaigns/${id}/report`).then(setR).finally(() => setLoading(false));
   useEffect(() => { load(); }, [id]);
 
   const cancel = async () => {
     setMsg("");
-    try { await api(`/campaigns/${id}/cancel`, { method: "POST" }); setMsg("İptal edildi"); load(); }
+    try { await api(`/campaigns/${id}/cancel`, { method: "POST", body: JSON.stringify({}) }); setMsg("İptal edildi"); load(); }
     catch (e: any) { setMsg("✗ " + e.message); }
   };
   const reschedule = async () => {
@@ -46,6 +48,12 @@ export default function CampaignDetail() {
     setMsg("");
     try { await api(`/campaigns/${id}/schedule`, { method: "PATCH", body: JSON.stringify({ scheduled_at: new Date(newTime).toISOString() }) }); setMsg("Zaman güncellendi"); setNewTime(""); load(); }
     catch (e: any) { setMsg("✗ " + e.message); }
+  };
+  const remove = async () => {
+    if (!confirm("Bu kampanyayı silmek istediğinize emin misiniz? Alıcı kayıtları da silinecek. Bu işlem geri alınamaz.")) return;
+    setDeleting(true); setMsg("");
+    try { await api(`/campaigns/${id}`, { method: "DELETE", body: JSON.stringify({}) }); navigate("/campaigns"); }
+    catch (e: any) { setMsg("✗ " + e.message); setDeleting(false); }
   };
 
   if (loading) return <div className="text-slate-400">Yükleniyor…</div>;
@@ -55,7 +63,16 @@ export default function CampaignDetail() {
   return (
     <div>
       <Link to="/campaigns" className="text-sm text-indigo-600 hover:text-indigo-800">← Kampanyalar</Link>
-      <h1 className="text-2xl font-semibold mt-2 mb-1">{c.name}</h1>
+      <div className="flex items-start justify-between gap-3 mt-2 mb-1">
+        <h1 className="text-2xl font-semibold">{c.name}</h1>
+        <button
+          onClick={remove}
+          disabled={deleting}
+          className="shrink-0 px-3 py-2 rounded-lg border border-red-200 text-red-600 text-sm font-medium hover:bg-red-50 active:bg-red-100 disabled:opacity-50 transition-colors"
+        >
+          {deleting ? "Siliniyor…" : "Sil"}
+        </button>
+      </div>
       <p className="text-slate-500 mb-6">
         {CHANNEL[c.channel] ?? c.channel}
         {c.template_ref ? ` · ${c.template_ref}` : ""}

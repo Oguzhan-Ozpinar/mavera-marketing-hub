@@ -1,5 +1,5 @@
 import type { FastifyInstance } from "fastify";
-import { readItems, readItem, updateItem } from "@directus/sdk";
+import { readItems, readItem, updateItem, deleteItem, deleteItems } from "@directus/sdk";
 import { requirePermission } from "../../auth/auth.plugin.js";
 import { createCampaign, triggerCampaign, type CreateCampaignInput } from "./campaigns.service.js";
 
@@ -80,6 +80,18 @@ export async function registerCampaignRoutes(app: FastifyInstance) {
     const { scheduled_at } = (req.body ?? {}) as { scheduled_at?: string };
     if (!scheduled_at) return reply.code(400).send({ error: "scheduled_at gerekli" });
     await ctx.directus.request(updateItem("campaigns", id, { scheduled_at, status: "scheduled" }));
+    return { ok: true };
+  });
+
+  // Kampanyayı SİL (alıcı kayıtlarıyla birlikte)
+  app.delete("/campaigns/:id", { preHandler: requirePermission("campaigns.send") }, async (req) => {
+    const ctx = req.dernekContext!;
+    const { id } = req.params as { id: string };
+    const recs = (await ctx.directus.request(
+      readItems("campaign_recipients", { filter: { campaign_id: { _eq: id } } as any, fields: ["id"], limit: -1 }),
+    )) as Array<{ id: string | number }>;
+    if (recs.length) await ctx.directus.request(deleteItems("campaign_recipients", recs.map((r) => r.id) as any));
+    await ctx.directus.request(deleteItem("campaigns", id));
     return { ok: true };
   });
 }
