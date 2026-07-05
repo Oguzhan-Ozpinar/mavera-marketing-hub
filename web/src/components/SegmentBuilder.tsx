@@ -58,22 +58,16 @@ export default function SegmentBuilder({
                 <option value="true">Evet</option>
                 <option value="false">Hayır</option>
               </select>
+            ) : meta?.suggestions ? (
+              <SuggestValue suggestions={meta.suggestions} value={r.value} onChange={(v) => update(i, { value: v })} />
             ) : (
-              <>
-                <input
-                  className={inputCls}
-                  type={meta?.type === "number" ? "number" : meta?.type === "date" ? "date" : "text"}
-                  value={r.value}
-                  onChange={(e) => update(i, { value: e.target.value })}
-                  placeholder="değer"
-                  list={meta?.suggestions ? `sug-${r.field}` : undefined}
-                />
-                {meta?.suggestions && (
-                  <datalist id={`sug-${r.field}`}>
-                    {meta.suggestions.map((s) => <option key={s} value={s} />)}
-                  </datalist>
-                )}
-              </>
+              <input
+                className={inputCls}
+                type={meta?.type === "number" ? "number" : meta?.type === "date" ? "date" : "text"}
+                value={r.value}
+                onChange={(e) => update(i, { value: e.target.value })}
+                placeholder="değer"
+              />
             )}
             <button onClick={() => remove(i)} className="text-slate-400 hover:text-red-600 px-2" title="Kaldır">
               ✕
@@ -85,5 +79,32 @@ export default function SegmentBuilder({
         + Kural ekle
       </button>
     </div>
+  );
+}
+
+// Öneri listeli değer: açık dropdown + "Diğer" ile serbest yazma
+function SuggestValue({ suggestions, value, onChange }: { suggestions: string[]; value: string; onChange: (v: string) => void }) {
+  const isOther = value !== "" && !suggestions.includes(value);
+  return (
+    <>
+      <select
+        className={inputCls}
+        value={isOther ? "__other__" : value}
+        onChange={(e) => onChange(e.target.value === "__other__" ? " " : e.target.value)}
+      >
+        <option value="">seç…</option>
+        {suggestions.map((s) => <option key={s} value={s}>{s}</option>)}
+        <option value="__other__">✏️ Diğer (yaz)</option>
+      </select>
+      {isOther && (
+        <input
+          className={inputCls}
+          value={value.trimStart()}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="özel değer"
+          autoFocus
+        />
+      )}
+    </>
   );
 }
