@@ -7,7 +7,8 @@ interface Campaign {
   name: string;
   channel: string;
   status: string;
-  counts?: { total?: number; queued?: number; skipped?: number };
+  counts?: { total?: number; queued?: number; sent?: number; skipped?: number };
+  scheduled_at?: string;
   date_created?: string;
 }
 
@@ -17,6 +18,7 @@ const STATUS: Record<string, { label: string; cls: string }> = {
   sending: { label: "Gönderiliyor", cls: "bg-blue-100 text-blue-700" },
   done: { label: "Tamamlandı", cls: "bg-emerald-100 text-emerald-700" },
   failed: { label: "Başarısız", cls: "bg-red-100 text-red-700" },
+  cancelled: { label: "İptal edildi", cls: "bg-slate-100 text-slate-500 line-through" },
 };
 const CHANNEL: Record<string, string> = { email: "E-posta", whatsapp: "WhatsApp", sms: "SMS" };
 const TABS = [
@@ -87,7 +89,11 @@ export default function Campaigns() {
                       <span className={`px-2 py-0.5 rounded-full text-xs ${s.cls}`}>{s.label}</span>
                     </td>
                     <td className="px-4 py-3 text-slate-500">
-                      {c.counts?.queued != null ? `${c.counts.queued} gönderildi · ${c.counts.skipped ?? 0} atlandı` : "—"}
+                      {c.status === "scheduled" && c.scheduled_at
+                        ? `🕐 ${new Date(c.scheduled_at).toLocaleString("tr-TR")}`
+                        : c.counts?.queued != null
+                          ? `${c.counts.sent ?? c.counts.queued} gönderildi · ${c.counts.skipped ?? 0} atlandı`
+                          : "—"}
                     </td>
                   </tr>
                 );

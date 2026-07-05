@@ -99,6 +99,24 @@ src/
 - [ ] Sprint 1 kalan: apply-to-all (prod'da tüm dernek Directus'larına şema)
 - [ ] (ertelendi, kullanıcı isteğiyle) KVKK optin default'ları — bkz. yukarıdaki not
 
+## Directus Eklentisi: Duplicate Manager (dublon yönetimi)
+`directus/extensions/duplicate-manager/` — kontakt kartlarındaki **mükerrer kayıtları** tespit edip
+pazarlamacıya sade bir ekranda inceletir ve **yumuşak birleştirme (soft-merge)** yaptırır. Hub'ın telefon-tabanlı
+upsert'i çoğu dublonu baştan önler; bu eklenti ise telefon dışı yollarla (ad-soyad, e-posta, elle giriş) sızan
+tarihsel mükerrerleri temizler.
+
+- **Nasıl çalışır:** bir tarama (scan) aday çiftleri üretir → skorlar → pazarlamacı onaylar/reddeder → onaylanan çift
+  tek karta birleşir (kaynak kayıt silinmez, `is_merged`/`merged_into`/`merged_at` ile işaretlenir), tüm işlem
+  denetime yazılır. Reddedilen çiftler "reddedildi hafızası"nda tutulur, tekrar aday olarak çıkmaz.
+- **Panel:** Directus içinde `/admin/duplicate-manager` modülü.
+- **Uç noktalar:** `POST /duplicate-manager/scan` (tarama), `GET /duplicate-manager/candidates` (aday liste),
+  `GET /duplicate-manager/:id/preview` (birleştirme önizleme), `POST /duplicate-manager/:id/merge` (birleştir),
+  `POST /duplicate-manager/:id/reject` (reddet).
+- **Skorlama & motor:** `src/shared/scoring.ts` (benzerlik puanı), `src/shared/engine.ts` (eşleştirme/birleştirme mantığı).
+- **İlgili şema:** Contacts → `is_merged`, `merged_into`, `merged_at`; koleksiyonlar → `duplicate_candidates`,
+  `duplicate_merge_audit` (`npm run schema:additions` ile eklenir).
+- Detay: `directus/extensions/duplicate-manager/IMPLEMENTATION_NOTES.md`.
+
 ## ⚠️ KVKK notu (aksiyon gerek)
 Production Directus'ta `whatsapp_optin` ve `mail_optin` alanları **default_value = true** → yeni kontaktlar
 otomatik "opted-in" oluyor. İYS/KVKK açısından riskli (açık rıza gerekir). Öneri: default'u **false** yapıp

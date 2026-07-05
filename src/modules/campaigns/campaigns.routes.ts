@@ -1,5 +1,5 @@
 import type { FastifyInstance } from "fastify";
-import { readItems, readItem } from "@directus/sdk";
+import { readItems, readItem, updateItem } from "@directus/sdk";
 import { requirePermission } from "../../auth/auth.plugin.js";
 import { createCampaign, triggerCampaign, type CreateCampaignInput } from "./campaigns.service.js";
 
@@ -11,7 +11,7 @@ export async function registerCampaignRoutes(app: FastifyInstance) {
     const rows = await ctx.directus.request(
       readItems("campaigns", {
         ...(status ? { filter: { status: { _eq: status } } } : {}),
-        fields: ["id", "name", "channel", "status", "triggered_at", "counts", "date_created"],
+        fields: ["id", "name", "channel", "status", "triggered_at", "scheduled_at", "counts", "date_created"],
         sort: ["-date_created"],
         limit: 200,
       }),
@@ -32,7 +32,7 @@ export async function registerCampaignRoutes(app: FastifyInstance) {
     const ctx = req.dernekContext!;
     const { id } = req.params as { id: string };
     const campaign = await ctx.directus.request(
-      readItem("campaigns", id, { fields: ["id", "name", "channel", "status", "counts", "triggered_at", "template_ref", "audience_type"] }),
+      readItem("campaigns", id, { fields: ["id", "name", "channel", "status", "counts", "triggered_at", "scheduled_at", "template_ref", "audience_type"] }),
     );
     const recipients = (await ctx.directus.request(
       readItems("campaign_recipients", {
@@ -61,5 +61,25 @@ export async function registerCampaignRoutes(app: FastifyInstance) {
     const { id } = req.params as { id: string };
     const result = await triggerCampaign(ctx, id);
     return reply.send(result);
+  });
+
+  // Planlı kampanyayı İPTAL et (zamanlayıcı tetiklemez)
+  app.post("/campaigns/:id/cancel", { preHandler: requirePermission("campaigns.send") }, async (req, reply) => {
+    const ctx = req.dernekContext!;
+    const { id } = req.params as { id: string };
+    const c = (await ctx.directus.request(readItem("campaigns", id, { fields: ["status"] }))) as { status: string };
+    if (c.status !== "scheduled") return reply.code(400).send({ error: "Yalnızca planlı kampanya iptal edilebilir" });
+    await ctx.directus.request(updateItem("campaigns", id, { status: "cancelled" }));
+    return { ok: true };
+  });
+
+  // Planlama zamanını değiştir (planlı/iptal/taslak → yeniden planla)
+  app.patch("/campaigns/:id/schedule", { preHandler: requirePermission("campaigns.send") }, async (req, reply) => {
+    const ctx = req.dernekContext!;
+    const { id } = req.params as { id: string };
+    const { scheduled_at } = (req.body ?? {}) as { scheduled_at?: string };
+    if (!scheduled_at) return reply.code(400).send({ error: "scheduled_at gerekli" });
+    await ctx.directus.request(updateItem("campaigns", id, { scheduled_at, status: "scheduled" }));
+    return { ok: true };
   });
 }

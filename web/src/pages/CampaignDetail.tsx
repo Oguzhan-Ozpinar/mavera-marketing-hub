@@ -11,7 +11,7 @@ interface Recipient {
   contact_id?: { first_name?: string; last_name?: string } | null;
 }
 interface Report {
-  campaign: { id: string; name: string; channel: string; status: string; counts?: any; triggered_at?: string; template_ref?: string; audience_type?: string };
+  campaign: { id: string; name: string; channel: string; status: string; counts?: any; triggered_at?: string; scheduled_at?: string; template_ref?: string; audience_type?: string };
   byStatus: Record<string, number>;
   recipients: Recipient[];
 }
@@ -30,10 +30,23 @@ export default function CampaignDetail() {
   const { id } = useParams();
   const [r, setR] = useState<Report | null>(null);
   const [loading, setLoading] = useState(true);
+  const [newTime, setNewTime] = useState("");
+  const [msg, setMsg] = useState("");
 
-  useEffect(() => {
-    api<Report>(`/campaigns/${id}/report`).then(setR).finally(() => setLoading(false));
-  }, [id]);
+  const load = () => api<Report>(`/campaigns/${id}/report`).then(setR).finally(() => setLoading(false));
+  useEffect(() => { load(); }, [id]);
+
+  const cancel = async () => {
+    setMsg("");
+    try { await api(`/campaigns/${id}/cancel`, { method: "POST" }); setMsg("İptal edildi"); load(); }
+    catch (e: any) { setMsg("✗ " + e.message); }
+  };
+  const reschedule = async () => {
+    if (!newTime) return;
+    setMsg("");
+    try { await api(`/campaigns/${id}/schedule`, { method: "PATCH", body: JSON.stringify({ scheduled_at: new Date(newTime).toISOString() }) }); setMsg("Zaman güncellendi"); setNewTime(""); load(); }
+    catch (e: any) { setMsg("✗ " + e.message); }
+  };
 
   if (loading) return <div className="text-slate-400">Yükleniyor…</div>;
   if (!r) return <div className="text-slate-400">Kampanya bulunamadı.</div>;
@@ -49,6 +62,21 @@ export default function CampaignDetail() {
         {c.audience_type === "manual" ? " · manuel liste" : ""}
         {c.triggered_at ? ` · ${new Date(c.triggered_at).toLocaleString("tr-TR")}` : ""}
       </p>
+
+      {c.status === "scheduled" && (
+        <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-6 space-y-3">
+          <div className="text-sm">🕐 <b>Planlandı:</b> {c.scheduled_at ? new Date(c.scheduled_at).toLocaleString("tr-TR") : "—"}</div>
+          <div className="flex flex-wrap items-center gap-2">
+            <input type="datetime-local" className="px-3 py-2 rounded-lg border border-slate-300 text-sm bg-white" value={newTime} onChange={(e) => setNewTime(e.target.value)} />
+            <button onClick={reschedule} className="px-3 py-2 rounded-lg border border-slate-300 text-sm font-medium hover:bg-white active:bg-slate-100 transition-colors">Zamanı değiştir</button>
+            <button onClick={cancel} className="px-3 py-2 rounded-lg bg-red-600 text-white text-sm font-medium hover:bg-red-700 active:bg-red-800 transition-colors">İptal et</button>
+            {msg && <span className="text-sm text-slate-600">{msg}</span>}
+          </div>
+        </div>
+      )}
+      {c.status === "cancelled" && (
+        <div className="bg-slate-100 border border-slate-200 rounded-xl p-4 mb-6 text-sm text-slate-600">Bu kampanya iptal edildi.</div>
+      )}
 
       {/* Özet */}
       <div className="flex flex-wrap gap-3 mb-6">

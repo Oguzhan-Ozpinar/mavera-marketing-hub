@@ -17,6 +17,7 @@ const STATUS: Record<string, { label: string; cls: string }> = {
   sending: { label: "Gönderiliyor", cls: "bg-blue-100 text-blue-700" },
   done: { label: "Tamamlandı", cls: "bg-emerald-100 text-emerald-700" },
   failed: { label: "Başarısız", cls: "bg-red-100 text-red-700" },
+  cancelled: { label: "İptal edildi", cls: "bg-slate-100 text-slate-500" },
 };
 const CHANNEL: Record<string, string> = { email: "E-posta", whatsapp: "WhatsApp", sms: "SMS" };
 const DELIVERY_LABEL: Record<string, string> = { queued: "Kuyrukta", sent: "Gönderildi", delivered: "Ulaştı", read: "Okundu", failed: "Başarısız", skipped: "Atlandı" };
