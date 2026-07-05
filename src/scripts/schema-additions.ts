@@ -5,7 +5,8 @@
  *   - İzinler: sms_optin, phone_call_optin
  *   - RFM özeti: last_donation_at, first_donation_at, donation_count, donation_total, donation_types
  * Yeni koleksiyonlar:
- *   - consent_log, master_blacklist, campaigns, campaign_recipients, webhook_events, automation_rules
+ *   - consent_log, master_blacklist, duplicate_candidates, duplicate_merge_audit
+ *   - campaigns, campaign_recipients, webhook_events, automation_rules
  *
  * Kullanım:
  *   tsx src/scripts/schema-additions.ts                     # LOCAL_DIRECTUS_URL/TOKEN
@@ -110,6 +111,12 @@ async function ensureField(collection: string, def: any) {
   console.log(`  + ${collection}.${def.field}`);
 }
 
+async function updateFieldMeta(collection: string, field: string, meta: Record<string, unknown>) {
+  if (!(await exists(`/fields/${collection}/${field}`))) return;
+  await api("PATCH", `/fields/${collection}/${field}`, { meta });
+  console.log(`  ~ ${collection}.${field} meta`);
+}
+
 async function ensureCollection(collection: string, meta: Record<string, unknown>, fields: any[]) {
   if (await exists(`/collections/${collection}`)) {
     console.log(`= koleksiyon ${collection} (var)`);
@@ -159,6 +166,19 @@ async function ensureM2O(collection: string, field: string, related: string, not
   await ensureRelation({ collection, field, related_collection: related });
 }
 
+async function ensureM2OInt(collection: string, field: string, related: string, note = "") {
+  if (!(await exists(`/fields/${collection}/${field}`))) {
+    await api("POST", `/fields/${collection}`, {
+      field,
+      type: "integer",
+      meta: { interface: "select-dropdown-m2o", note, special: ["m2o"] },
+      schema: {},
+    });
+    console.log(`  + ${collection}.${field} (m2o:int)`);
+  }
+  await ensureRelation({ collection, field, related_collection: related });
+}
+
 async function main() {
   console.log(`▶ Hedef Directus: ${BASE_URL}\n`);
 
@@ -176,6 +196,9 @@ async function main() {
   await ensureField("Contacts", floatField("donation_total", "RFM: toplam tutar (Monetary)"));
   await ensureField("Contacts", jsonField("donation_types", "RFM: {tip:{count,last}} — BTS özet"));
   await ensureField("Contacts", strField("donation_type_list", "Bağış türleri (virgüllü, segment filtresi için)"));
+  await ensureField("Contacts", boolField("is_merged", "Dublon merge sonrası pasiflenen kayıt mı?"));
+  await ensureM2O("Contacts", "merged_into", "Contacts", "Merge sonrası master contact");
+  await ensureField("Contacts", dtField("merged_at", "Merge zamanı"));
 
   // 2) consent_log
   await ensureCollection("consent_log", { icon: "gavel", note: "İzin geçmişi (KVKK/İYS kanıtı)" }, [pkAuto]);
@@ -194,7 +217,48 @@ async function main() {
   await ensureField("master_blacklist", strField("reason"));
   await ensureField("master_blacklist", dtField("blocked_at", "engellenme"));
 
-  // 4) campaigns
+  // 4) duplicate_candidates
+  await ensureCollection(
+    "duplicate_candidates",
+    { icon: "join_inner", note: "Muhtemel dublon kontakt onerileri" },
+    [pkAuto],
+  );
+  await ensureM2O("duplicate_candidates", "contact_a", "Contacts");
+  await ensureM2O("duplicate_candidates", "contact_b", "Contacts");
+  await updateFieldMeta("duplicate_candidates", "contact_a", {
+    display: "related-values",
+    display_options: { template: "{{first_name}} {{last_name}}" },
+  });
+  await updateFieldMeta("duplicate_candidates", "contact_b", {
+    display: "related-values",
+    display_options: { template: "{{first_name}} {{last_name}}" },
+  });
+  await ensureField("duplicate_candidates", strField("contact_a_name", "Liste görünümü için Contact A adı"));
+  await ensureField("duplicate_candidates", strField("contact_b_name", "Liste görünümü için Contact B adı"));
+  await ensureField("duplicate_candidates", intField("score", "0-100 benzerlik skoru"));
+  await ensureField("duplicate_candidates", jsonField("reasons", "Neden dublon dedik?"));
+  await ensureField("duplicate_candidates", jsonField("signals", "Skor sinyalleri"));
+  await ensureField("duplicate_candidates", strField("status", "pending|rejected|merged"));
+  await ensureField("duplicate_candidates", strField("pair_key", "Sıralı contact id çifti; reject hafızası"));
+  await ensureField("duplicate_candidates", dtField("detected_at", "Öneri zamanı"));
+  await ensureM2O("duplicate_candidates", "reviewed_by", "directus_users");
+  await ensureField("duplicate_candidates", dtField("reviewed_at", "İnceleme zamanı"));
+
+  // 5) duplicate_merge_audit
+  await ensureCollection(
+    "duplicate_merge_audit",
+    { icon: "fact_check", note: "Dublon merge denetim kaydı" },
+    [pkAuto],
+  );
+  await ensureM2OInt("duplicate_merge_audit", "candidate_id", "duplicate_candidates");
+  await ensureM2O("duplicate_merge_audit", "master_contact", "Contacts");
+  await ensureM2O("duplicate_merge_audit", "merged_contact", "Contacts");
+  await ensureField("duplicate_merge_audit", jsonField("field_changes", "Merge sırasında değişen alanlar"));
+  await ensureField("duplicate_merge_audit", jsonField("relation_moves", "Master contact'a taşınan ilişkiler"));
+  await ensureM2O("duplicate_merge_audit", "merged_by", "directus_users");
+  await ensureField("duplicate_merge_audit", dtField("merged_at", "Merge zamanı"));
+
+  // 6) campaigns
   await ensureCollection("campaigns", { icon: "campaign", note: "Kampanyalar" }, [pkUuid]);
   await ensureField("campaigns", strField("name"));
   await ensureField("campaigns", strField("channel", "email|whatsapp|sms"));
@@ -214,7 +278,7 @@ async function main() {
   await ensureField("campaigns", dateCreatedField);
   await ensureM2O("campaigns", "created_by", "directus_users");
 
-  // 5) campaign_recipients
+  // 7) campaign_recipients
   await ensureCollection("campaign_recipients", { icon: "how_to_reg", note: "Kampanya gönderim logu" }, [pkAuto]);
   await ensureM2O("campaign_recipients", "campaign_id", "campaigns");
   await ensureM2O("campaign_recipients", "contact_id", "Contacts");
@@ -224,7 +288,7 @@ async function main() {
   await ensureField("campaign_recipients", textField("error"));
   await ensureField("campaign_recipients", dtField("updated_at"));
 
-  // 6) webhook_events (idempotency) — id = provider event id (string PK)
+  // 8) webhook_events (idempotency) — id = provider event id (string PK)
   await ensureCollection("webhook_events", { icon: "webhook", note: "Webhook idempotency" }, [
     { field: "id", type: "string", meta: { hidden: false }, schema: { is_primary_key: true } },
   ]);
@@ -233,7 +297,7 @@ async function main() {
   await ensureField("webhook_events", dtField("received_at"));
   await ensureField("webhook_events", dtField("processed_at"));
 
-  // 7) automation_rules (dinamik akış motoru)
+  // 9) automation_rules (dinamik akış motoru)
   await ensureCollection("automation_rules", { icon: "smart_toy", note: "Dinamik bağış-tipi akış kuralları" }, [pkUuid]);
   await ensureField("automation_rules", strField("name"));
   await ensureField("automation_rules", boolField("is_active", "kural aktif mi"));
@@ -248,7 +312,7 @@ async function main() {
   await ensureField("automation_rules", dateCreatedField);
   await ensureM2O("automation_rules", "created_by", "directus_users");
 
-  // 8) segments (kayıtlı hedef kitleler)
+  // 10) segments (kayıtlı hedef kitleler)
   await ensureCollection("segments", { icon: "filter_alt", note: "Kayıtlı hedef kitle segmentleri" }, [pkUuid]);
   await ensureField("segments", strField("name"));
   await ensureField("segments", textField("description"));
@@ -256,7 +320,7 @@ async function main() {
   await ensureField("segments", dateCreatedField);
   await ensureM2O("segments", "created_by", "directus_users");
 
-  // 9) integration_settings (kanal anahtarları — UI'dan düzenlenebilir, singleton)
+  // 11) integration_settings (kanal anahtarları — UI'dan düzenlenebilir, singleton)
   await ensureCollection(
     "integration_settings",
     { icon: "key", note: "Kanal API ayarları (MonoChat / Netgsm / EmailOctopus)", singleton: true },

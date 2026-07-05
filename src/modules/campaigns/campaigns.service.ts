@@ -2,7 +2,7 @@
  * Kampanya servisi — oluştur + tetikle.
  * Tetikleme akışı: hedef kitle → fail-safe filtre → campaign_recipients + kuyruğa iş.
  */
-import { createItem, readItem, updateItem } from "@directus/sdk";
+import { createItem, readItem, readItems, updateItem } from "@directus/sdk";
 import type { DernekContext } from "../../dernek/dernek.context.js";
 import type { Channel } from "../../channels/sender.js";
 import { sendQueue } from "../../lib/queue.js";
@@ -42,6 +42,23 @@ export async function createCampaign(ctx: DernekContext, input: CreateCampaignIn
       scheduled_at: input.scheduled_at ?? null,
       status: input.scheduled_at ? "scheduled" : "draft",
       created_by: createdBy ?? null,
+    }),
+  );
+}
+
+/** Tüm alıcılar terminal duruma geldiyse kampanyayı done/failed'e çeker + sayımları günceller. */
+export async function finalizeCampaign(ctx: DernekContext, campaignId: string): Promise<void> {
+  const rows = (await ctx.directus.request(
+    readItems("campaign_recipients", { filter: { campaign_id: { _eq: campaignId } } as any, fields: ["status"], limit: -1 }),
+  )) as Array<{ status: string }>;
+  if (rows.some((r) => r.status === "queued")) return; // hâlâ bekleyen var
+
+  const sent = rows.filter((r) => ["sent", "delivered", "read"].includes(r.status)).length;
+  const failed = rows.filter((r) => r.status === "failed").length;
+  await ctx.directus.request(
+    updateItem("campaigns", campaignId, {
+      status: sent > 0 ? "done" : "failed",
+      counts: { total: rows.length, sent, failed },
     }),
   );
 }

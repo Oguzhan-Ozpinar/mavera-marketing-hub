@@ -44,6 +44,7 @@ export interface NormalizedTemplate {
   bodyVarCount: number;
   footerText?: string;
   buttonsVarCount: number;
+  headerExample?: string; // medya header için örnek medya URL'i (şablonda tanımlı)
 }
 
 function normalize(t: any): NormalizedTemplate {
@@ -63,6 +64,7 @@ function normalize(t: any): NormalizedTemplate {
     bodyVarCount: body?.variables?.length ?? 0,
     footerText: footer?.text,
     buttonsVarCount: buttons?.variables?.length ?? 0,
+    headerExample: header?.format !== "TEXT" ? header?.variables?.[0]?.exampleValue : undefined,
   };
 }
 

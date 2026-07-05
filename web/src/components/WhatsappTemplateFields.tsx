@@ -17,7 +17,7 @@ export const TOKENS = [
 
 interface Tmpl {
   name: string; category?: string; languageCode?: string; headerFormat?: string;
-  headerVarCount: number; bodyText?: string; bodyVarCount: number;
+  headerVarCount: number; bodyText?: string; bodyVarCount: number; headerExample?: string;
 }
 
 export interface WaTemplateValue {
@@ -58,7 +58,7 @@ export default function WhatsappTemplateFields({
       headerVars: Array.from({ length: t?.headerVarCount ?? 0 }, () => "fullName"),
       bodyVars: Array.from({ length: t?.bodyVarCount ?? 0 }, () => "fullName"),
       headerFormat: t?.headerFormat,
-      headerMedia: "",
+      headerMedia: t?.headerExample ?? "", // şablonun kendi örnek medyasıyla önceden doldur
     });
   };
 

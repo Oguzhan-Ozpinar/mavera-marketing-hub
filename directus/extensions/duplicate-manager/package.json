@@ -1,0 +1,42 @@
+{
+  "name": "directus-extension-duplicate-manager",
+  "version": "0.2.0",
+  "description": "Directus CRM duplicate detection and merge review module for Mavera.",
+  "type": "module",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "directus-extension build",
+    "dev": "directus-extension build --watch"
+  },
+  "devDependencies": {
+    "@directus/extensions-sdk": "^15.0.0",
+    "typescript": "^5.6.3",
+    "vue": "^3.5.0"
+  },
+  "directus:extension": {
+    "type": "bundle",
+    "host": "^11.0.0",
+    "path": {
+      "app": "dist/app.js",
+      "api": "dist/api.js"
+    },
+    "entries": [
+      {
+        "type": "module",
+        "name": "duplicate-manager-module",
+        "source": "src/module/index.ts"
+      },
+      {
+        "type": "endpoint",
+        "name": "duplicate-manager-endpoint",
+        "source": "src/endpoint/index.ts"
+      },
+      {
+        "type": "hook",
+        "name": "duplicate-manager-hook",
+        "source": "src/hook/index.ts"
+      }
+    ]
+  }
+}

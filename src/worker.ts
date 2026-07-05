@@ -9,7 +9,7 @@ import { readItems } from "@directus/sdk";
 import { getDernekContext, refreshAllDerneks } from "./dernek/dernek.context.js";
 import { sendMessage } from "./channels/sender.js";
 import { executeJourney } from "./modules/journeys/journey.execute.js";
-import { triggerCampaign } from "./modules/campaigns/campaigns.service.js";
+import { triggerCampaign, finalizeCampaign } from "./modules/campaigns/campaigns.service.js";
 import { listDernekIds } from "./config/derneks.js";
 
 const worker = new Worker<SendJobData>(
@@ -50,6 +50,9 @@ const worker = new Worker<SendJobData>(
         }),
       );
     }
+
+    // Kampanya bitti mi? (tüm alıcılar terminal → done/failed)
+    if (d.campaignId) await finalizeCampaign(ctx, d.campaignId).catch(() => {});
 
     if (result.status === "failed") throw new Error(result.error ?? "gönderim başarısız");
     return result;

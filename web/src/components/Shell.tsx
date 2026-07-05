@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../auth/auth";
 
 const NAV = [
@@ -16,9 +16,16 @@ const ROLE_LABEL: Record<string, string> = { admin: "Yönetici", marketer: "Paza
 export default function Shell() {
   const { user, logout } = useAuth();
   const nav = useNavigate();
+  const loc = useLocation();
   const [open, setOpen] = useState(false);
 
   const items = NAV.filter((n) => !n.adminOnly || user?.role === "admin");
+
+  // Browser sekme başlığı: "<aktif sekme> · Mavera Marketing Hub"
+  useEffect(() => {
+    const active = [...NAV].sort((a, b) => b.to.length - a.to.length).find((n) => loc.pathname === n.to || (!n.end && loc.pathname.startsWith(n.to) && n.to !== "/"));
+    document.title = active ? `${active.label} · Mavera Marketing Hub` : "Mavera Marketing Hub";
+  }, [loc.pathname]);
 
   const SidebarContent = (
     <>

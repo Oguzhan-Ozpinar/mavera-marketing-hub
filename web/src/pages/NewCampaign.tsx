@@ -149,18 +149,21 @@ export default function NewCampaign() {
   return (
     <div>
       <h1 className="text-2xl font-semibold mb-6">Yeni Kampanya</h1>
-      <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-5">
-        <div>
+      <div className="space-y-4">
+        {/* Kampanya adı */}
+        <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
           <label className="block text-sm font-medium mb-1">Kampanya adı</label>
           <input className={inputCls} value={name} onChange={(e) => setName(e.target.value)} placeholder="Örn. Kurban 2026 Bülteni" />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium mb-1">Kanal</label>
-          <select className={inputCls} value={channel} onChange={(e) => { setChannel(e.target.value); setTemplateRef(""); setPreview(null); }}>
-            {CHANNELS.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
-          </select>
-        </div>
+        {/* Kanal + içerik */}
+        <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Kanal</label>
+            <select className={inputCls} value={channel} onChange={(e) => { setChannel(e.target.value); setTemplateRef(""); setPreview(null); }}>
+              {CHANNELS.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
+            </select>
+          </div>
 
         {/* WhatsApp: şablon + değişken eşleme */}
         {channel === "whatsapp" && (
@@ -205,9 +208,10 @@ export default function NewCampaign() {
             <input className={inputCls} value={templateRef} onChange={(e) => setTemplateRef(e.target.value)} placeholder="EO kampanya id/adı" />
           </div>
         )}
+        </div>
 
-        {/* Hedef kitle */}
-        <div>
+        {/* Hedef kitle + önizle */}
+        <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
           <label className="block text-sm font-medium mb-2">Hedef kitle</label>
           <div className="flex gap-4 text-sm mb-3">
             <label className="flex items-center gap-2">
@@ -252,35 +256,28 @@ export default function NewCampaign() {
               <p className="text-sm text-slate-600">{manualRecipients.length} alıcı</p>
             </div>
           )}
-        </div>
 
-        {/* Planlama */}
-        <div>
-          <label className="block text-sm font-medium mb-1">Planla (opsiyonel)</label>
-          <input type="datetime-local" className={inputCls} value={scheduledAt} onChange={(e) => setScheduledAt(e.target.value)} />
-          <p className="text-xs text-slate-400 mt-1">Boş bırakırsan hemen gönderebilirsin. Tarih seçersen o zamanda otomatik gönderilir.</p>
-        </div>
-
-        {audienceType === "segment" && (
-          <>
-            <div className="flex items-center gap-3">
-              <button onClick={doPreview} className="px-4 py-2 rounded-lg border border-slate-300 text-sm font-medium hover:bg-slate-50">Önizle (kaç kişi?)</button>
-              {preview && (
-                <div className="text-sm text-slate-600">
-                  <b>{preview.total}</b> eşleşti
-                  {preview.sendable != null && <> · <b className="text-emerald-600">{preview.sendable}</b> gönderilebilir · {preview.skipped} atlandı</>}
-                  {preview.estimatedCostTRY != null && <> · 💰 ~<b>{preview.estimatedCostTRY} ₺</b> (tahmini)</>}
-                </div>
+          {audienceType === "segment" && (
+            <div className="mt-4 pt-3 border-t border-slate-100 space-y-1">
+              <div className="flex items-center gap-3">
+                <button onClick={doPreview} className="px-4 py-2 rounded-lg border border-slate-300 text-sm font-medium hover:bg-slate-50 active:bg-slate-100 transition-colors">Önizle (kaç kişi?)</button>
+                {preview && (
+                  <div className="text-sm text-slate-600">
+                    <b>{preview.total}</b> eşleşti
+                    {preview.sendable != null && <> · <b className="text-emerald-600">{preview.sendable}</b> gönderilebilir · {preview.skipped} atlandı</>}
+                    {preview.estimatedCostTRY != null && <> · 💰 ~<b>{preview.estimatedCostTRY} ₺</b> (tahmini)</>}
+                  </div>
+                )}
+              </div>
+              {preview?.skippedReasons && Object.keys(preview.skippedReasons).length > 0 && (
+                <div className="text-xs text-slate-500">Atlananlar: {Object.entries(preview.skippedReasons).map(([k, v]) => `${k}: ${v}`).join(" · ")}</div>
               )}
             </div>
-            {preview?.skippedReasons && Object.keys(preview.skippedReasons).length > 0 && (
-              <div className="text-xs text-slate-500">Atlananlar: {Object.entries(preview.skippedReasons).map(([k, v]) => `${k}: ${v}`).join(" · ")}</div>
-            )}
-          </>
-        )}
+          )}
+        </div>
 
         {/* Test gönderim */}
-        <div className="rounded-lg border border-dashed border-slate-300 p-4 bg-slate-50 space-y-2">
+        <div className="rounded-xl border border-dashed border-slate-300 bg-white shadow-sm p-5 space-y-2">
           <label className="block text-sm font-medium">🧪 Test gönder</label>
           <p className="text-xs text-slate-500">Kampanyayı kaydetmeden tek bir numaraya/e-postaya dene. Değişkenli/medya şablonlarda test değerlerini aşağıya gir.</p>
 
@@ -301,18 +298,26 @@ export default function NewCampaign() {
           {testMsg && <p className={`text-sm mt-1 ${testMsg.startsWith("✓") ? "text-emerald-600" : "text-red-600"}`}>{testMsg}</p>}
         </div>
 
-        {err && <p className="text-sm text-red-600">{err}</p>}
-        <div className="flex gap-3 pt-2 border-t border-slate-100">
-          <button disabled={busy} onClick={() => save(false)} className="px-4 py-2 rounded-lg border border-slate-300 text-sm font-medium hover:bg-slate-50 disabled:opacity-60">Taslak kaydet</button>
-          {scheduledAt ? (
-            <button disabled={busy} onClick={() => save(false)} className="px-4 py-2 rounded-lg bg-amber-600 text-white text-sm font-medium hover:bg-amber-700 disabled:opacity-60">
-              {busy ? "İşleniyor…" : "🕐 Planla"}
-            </button>
-          ) : (
-            <button disabled={busy} onClick={() => save(true)} className="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 active:bg-indigo-800 transition-colors disabled:opacity-60">
-              {busy ? "İşleniyor…" : "Kaydet ve Gönder"}
-            </button>
-          )}
+        {/* Planla + gönder */}
+        <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Planla (opsiyonel)</label>
+            <input type="datetime-local" className={inputCls} value={scheduledAt} onChange={(e) => setScheduledAt(e.target.value)} />
+            <p className="text-xs text-slate-400 mt-1">Boş bırakırsan hemen gönderebilirsin. Tarih seçersen o zamanda otomatik gönderilir.</p>
+          </div>
+          {err && <p className="text-sm text-red-600">{err}</p>}
+          <div className="flex gap-3 pt-3 border-t border-slate-100">
+            <button disabled={busy} onClick={() => save(false)} className="px-4 py-2 rounded-lg border border-slate-300 text-sm font-medium hover:bg-slate-50 active:bg-slate-100 transition-colors disabled:opacity-60">Taslak kaydet</button>
+            {scheduledAt ? (
+              <button disabled={busy} onClick={() => save(false)} className="px-4 py-2 rounded-lg bg-amber-500 text-white text-sm font-medium hover:bg-amber-600 active:bg-amber-700 transition-colors disabled:opacity-60">
+                {busy ? "İşleniyor…" : "🕐 Planla"}
+              </button>
+            ) : (
+              <button disabled={busy} onClick={() => save(true)} className="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 active:bg-indigo-800 transition-colors disabled:opacity-60">
+                {busy ? "İşleniyor…" : "Kaydet ve Gönder"}
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

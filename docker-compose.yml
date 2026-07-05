@@ -46,8 +46,10 @@ services:
       ADMIN_PASSWORD: "admin12345"
       # Şema apply için statik admin token (lokal):
       ADMIN_TOKEN: "lokal-admin-token"
+      EXTENSIONS_AUTO_RELOAD: "true"
     volumes:
       - directus_uploads:/directus/uploads
+      - ./directus/extensions:/directus/extensions
 
 volumes:
   pgdata:
