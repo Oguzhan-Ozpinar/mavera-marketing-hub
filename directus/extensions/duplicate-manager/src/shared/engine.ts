@@ -1,9 +1,13 @@
 import {
   CONTACT_FIELDS,
   type ContactRecord,
+  type ScoreResult,
   pairKey,
   scoreContacts,
   last10,
+  normalizeEmail,
+  normalizeText,
+  compactName,
 } from "./scoring";
 
 type Database = any;
@@ -30,7 +34,6 @@ export interface HydratedCandidate extends DuplicateCandidate {
 }
 
 const DEFAULT_THRESHOLD = 55;
-const DEFAULT_SCAN_LIMIT = 1000;
 
 const MERGE_FIELDS = [
   { field: "first_name", label: "Ad", type: "text", strategy: "prefer-master" },
@@ -70,56 +73,125 @@ export async function listCandidates(
   return hydrateCandidates(database, rows);
 }
 
-export async function scanAllContacts(database: Database, options: { limit?: number; threshold?: number } = {}) {
-  const limit = Math.min(Math.max(Number(options.limit) || DEFAULT_SCAN_LIMIT, 1), 5000);
+/**
+ * Tüm kişileri tarar — blocking-key yöntemi (ölçeklenebilir).
+ * O(n²) yerine kişileri aynı telefon / e-posta / mvr_uid / normalize-isim
+ * kovalarına ayırır ve YALNIZCA kova içi çiftleri skorlar. 16k+ kişide bile
+ * karşılaştırma sayısı küçük kalır; Directus sürecini dondurmaz.
+ */
+export async function scanAllContacts(
+  database: Database,
+  options: { threshold?: number; maxBucket?: number } = {},
+) {
   const threshold = Number(options.threshold) || DEFAULT_THRESHOLD;
-  const contacts = await database("Contacts")
+  // Anlamsız derecede büyük kovalar (ör. binlerce boş/aynı değer) O(n²) patlamasını
+  // önlemek için atlanır ve raporlanır.
+  const maxBucket = Math.min(Math.max(Number(options.maxBucket) || 2000, 2), 5000);
+
+  const contacts: ContactRecord[] = await database("Contacts")
     .select(CONTACT_FIELDS)
     .where((builder: any) => {
       builder.whereNull("is_merged").orWhere("is_merged", false);
-    })
-    .limit(limit);
+    });
 
+  // Blocking kovaları oluştur.
+  const buckets = new Map<string, ContactRecord[]>();
+  const push = (key: string, c: ContactRecord) => {
+    let arr = buckets.get(key);
+    if (!arr) { arr = []; buckets.set(key, arr); }
+    arr.push(c);
+  };
+  for (const c of contacts) {
+    const phone = String(c.phone_last10 ?? "").trim() || last10(c.phone);
+    if (phone) push(`p:${phone}`, c);
+    const email = normalizeEmail(c.email);
+    if (email) push(`e:${email}`, c);
+    const mvr = String(c.mvr_uid ?? "").trim();
+    if (mvr) push(`m:${mvr}`, c);
+    const name = normalizeText(compactName(c));
+    if (name) push(`n:${name}`, c);
+  }
+
+  // Kova içi çiftleri skorla (pairKey ile tekilleştir — bir çift birden çok kovada olabilir).
   let compared = 0;
-  let created = 0;
-  let updated = 0;
-  let skipped = 0;
-
-  for (let i = 0; i < contacts.length; i += 1) {
-    for (let j = i + 1; j < contacts.length; j += 1) {
-      compared += 1;
-      const result = await upsertCandidate(database, contacts[i], contacts[j], threshold);
-      if (result === "created") created += 1;
-      else if (result === "updated") updated += 1;
-      else skipped += 1;
+  let oversizeBuckets = 0;
+  const seen = new Set<string>();
+  const matches: Array<{ a: ContactRecord; b: ContactRecord; scored: ScoreResult }> = [];
+  for (const group of buckets.values()) {
+    if (group.length < 2) continue;
+    if (group.length > maxBucket) { oversizeBuckets += 1; continue; }
+    for (let i = 0; i < group.length; i += 1) {
+      for (let j = i + 1; j < group.length; j += 1) {
+        const a = group[i]!;
+        const b = group[j]!;
+        const pk = pairKey(String(a.id), String(b.id));
+        if (seen.has(pk)) continue;
+        seen.add(pk);
+        compared += 1;
+        const scored = scoreContacts(a, b);
+        if (scored.score >= threshold) matches.push({ a, b, scored });
+      }
     }
   }
 
-  return { scanned: contacts.length, compared, created, updated, skipped, threshold };
+  // Eşik üstü çiftleri aday olarak yaz.
+  let created = 0;
+  let updated = 0;
+  let skipped = 0;
+  for (const m of matches) {
+    const result = await writeCandidate(database, m.a, m.b, m.scored);
+    if (result === "created") created += 1;
+    else if (result === "updated") updated += 1;
+    else skipped += 1;
+  }
+
+  return {
+    scanned: contacts.length,
+    buckets: buckets.size,
+    oversizeBuckets,
+    compared,
+    matched: matches.length,
+    created,
+    updated,
+    skipped,
+    threshold,
+  };
 }
 
 export async function scanSingleContact(
   database: Database,
   contactId: string,
-  options: { threshold?: number; limit?: number } = {},
+  options: { threshold?: number } = {},
 ) {
   const threshold = Number(options.threshold) || DEFAULT_THRESHOLD;
   const target = await readContact(database, contactId);
   if (!target || target.is_merged) return { scanned: 0, compared: 0, created: 0, updated: 0, skipped: 0, threshold };
 
-  const others = await database("Contacts")
+  const phone = String(target.phone_last10 ?? "").trim() || last10(target.phone);
+  const emailLower = String(target.email ?? "").trim().toLowerCase();
+  const mvr = String(target.mvr_uid ?? "").trim();
+
+  // Yalnızca aynı bloğa düşenleri SQL ile getir (telefon / e-posta / mvr_uid).
+  const others: ContactRecord[] = await database("Contacts")
     .select(CONTACT_FIELDS)
     .whereNot("id", contactId)
     .where((builder: any) => {
       builder.whereNull("is_merged").orWhere("is_merged", false);
     })
-    .limit(Math.min(Math.max(Number(options.limit) || 1000, 1), 5000));
+    .andWhere((builder: any) => {
+      let has = false;
+      if (phone) { builder.orWhere("phone_last10", phone); has = true; }
+      if (emailLower) { builder.orWhereRaw("lower(email) = ?", [emailLower]); has = true; }
+      if (mvr) { builder.orWhere("mvr_uid", mvr); has = true; }
+      if (!has) builder.whereRaw("1 = 0"); // blok anahtarı yoksa eşleşme arama
+    });
 
   let created = 0;
   let updated = 0;
   let skipped = 0;
   for (const other of others) {
-    const result = await upsertCandidate(database, target, other, threshold);
+    const scored = scoreContacts(target, other);
+    const result = scored.score >= threshold ? await writeCandidate(database, target, other, scored) : "skipped";
     if (result === "created") created += 1;
     else if (result === "updated") updated += 1;
     else skipped += 1;
@@ -247,15 +319,13 @@ async function hydrateCandidates(database: Database, rows: DuplicateCandidate[])
   }));
 }
 
-async function upsertCandidate(
+/** Skoru verilmiş bir çifti aday tablosuna yazar (rejected/merged ise dokunmaz). */
+async function writeCandidate(
   database: Database,
   a: ContactRecord,
   b: ContactRecord,
-  threshold: number,
+  scored: ScoreResult,
 ): Promise<"created" | "updated" | "skipped"> {
-  const scored = scoreContacts(a, b);
-  if (scored.score < threshold) return "skipped";
-
   const key = pairKey(String(a.id), String(b.id));
   const existing = await database("duplicate_candidates").where({ pair_key: key }).first();
   if (existing?.status === "rejected" || existing?.status === "merged") return "skipped";
