@@ -84,9 +84,11 @@ export async function scanAllContacts(
   options: { threshold?: number; maxBucket?: number } = {},
 ) {
   const threshold = Number(options.threshold) || DEFAULT_THRESHOLD;
-  // Anlamsız derecede büyük kovalar (ör. binlerce boş/aynı değer) O(n²) patlamasını
-  // önlemek için atlanır ve raporlanır.
-  const maxBucket = Math.min(Math.max(Number(options.maxBucket) || 2000, 2), 5000);
+  // Placeholder/çöp değerler (ör. yüzlerce kayıtta paylaşılan aynı e-posta/telefon)
+  // dev kovalar oluşturup O(n²) patlamasına yol açar. Gerçek bir kişinin nadiren
+  // 20'den fazla mükerrer kaydı olur; bundan büyük kovalar veri-kalitesi artefaktı
+  // sayılıp ATLANIR ve oversizeBuckets olarak raporlanır (ayrıca elle incelenebilir).
+  const maxBucket = Math.min(Math.max(Number(options.maxBucket) || 20, 2), 500);
 
   const contacts: ContactRecord[] = await database("Contacts")
     .select(CONTACT_FIELDS)
@@ -115,11 +117,16 @@ export async function scanAllContacts(
   // Kova içi çiftleri skorla (pairKey ile tekilleştir — bir çift birden çok kovada olabilir).
   let compared = 0;
   let oversizeBuckets = 0;
+  const oversizeSamples: Array<{ key: string; size: number }> = [];
   const seen = new Set<string>();
   const matches: Array<{ a: ContactRecord; b: ContactRecord; scored: ScoreResult }> = [];
-  for (const group of buckets.values()) {
+  for (const [key, group] of buckets.entries()) {
     if (group.length < 2) continue;
-    if (group.length > maxBucket) { oversizeBuckets += 1; continue; }
+    if (group.length > maxBucket) {
+      oversizeBuckets += 1;
+      if (oversizeSamples.length < 20) oversizeSamples.push({ key, size: group.length });
+      continue;
+    }
     for (let i = 0; i < group.length; i += 1) {
       for (let j = i + 1; j < group.length; j += 1) {
         const a = group[i]!;
@@ -149,11 +156,13 @@ export async function scanAllContacts(
     scanned: contacts.length,
     buckets: buckets.size,
     oversizeBuckets,
+    oversizeSamples: oversizeSamples.sort((a, b) => b.size - a.size),
     compared,
     matched: matches.length,
     created,
     updated,
     skipped,
+    maxBucket,
     threshold,
   };
 }
